@@ -1,0 +1,17 @@
+platform :ios, '9.0'  # 指定平台与版本
+inhibit_all_warnings!  # 全局禁止显示警告
+target 'ShareAunt' do
+
+pod 'Masonry'
+pod 'MJExtension'
+pod 'IQKeyboardManager'
+pod 'AFNetworking'
+pod 'MBProgressHUD'
+pod 'MJRefresh'
+pod 'SDWebImage'
+pod 'TYAttributedLabel'
+#pod 'YYCategories'
+pod 'JKCategories'
+pod 'WMPageController'
+pod 'DZNEmptyDataSet'
+end
