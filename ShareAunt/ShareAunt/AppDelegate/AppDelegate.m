@@ -10,6 +10,7 @@
 #import "TJHomeViewController.h"
 #import "TJNavigationController.h"
 #import "TJLogInViewController.h"
+#import "TJSigninViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,6 +23,8 @@
    
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [[TJNavigationController alloc]initWithRootViewController:[[TJLogInViewController alloc]init]];
+//    self.window.rootViewController = [[TJNavigationController alloc]initWithRootViewController:[[TJSigninViewController alloc]init]];
+
     [self.window makeKeyWindow];
     return YES;
 }

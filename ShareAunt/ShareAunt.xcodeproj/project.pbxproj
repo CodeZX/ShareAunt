@@ -19,6 +19,26 @@
 		3CD7A6A921465AC6007C4500 /* TJUserCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6A821465AC6007C4500 /* TJUserCenterViewController.m */; };
 		3CD7A6B1214665CB007C4500 /* TJLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6B0214665CB007C4500 /* TJLogInViewController.m */; };
 		3CD7A6B4214665F0007C4500 /* TJSigninViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6B3214665F0007C4500 /* TJSigninViewController.m */; };
+		3CD7A6B8214772B1007C4500 /* TJForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6B7214772B1007C4500 /* TJForgetPasswordViewController.m */; };
+		3CD7A6BB214795F5007C4500 /* TJInputVerificationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6BA214795F5007C4500 /* TJInputVerificationCodeViewController.m */; };
+		3CD7A6BE21479BB8007C4500 /* TJResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6BD21479BB8007C4500 /* TJResetPasswordViewController.m */; };
+		3CD7A6C12147A55B007C4500 /* TJPasswordTextFeld.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6C02147A55B007C4500 /* TJPasswordTextFeld.m */; };
+		3CD7A6C42147C5E3007C4500 /* TJVerificationCodeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6C32147C5E3007C4500 /* TJVerificationCodeButton.m */; };
+		3CD7A6DE2148DCB0007C4500 /* UILabel+Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6DD2148DCB0007C4500 /* UILabel+Attribute.m */; };
+		3CD7A6E12148DEB6007C4500 /* UILabel+Initialize.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6E02148DEB6007C4500 /* UILabel+Initialize.m */; };
+		3CD7A6E42148EE41007C4500 /* TJBasicTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6E32148EE41007C4500 /* TJBasicTableView.m */; };
+		3CD7A6E72148F055007C4500 /* TJUserCenterHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6E62148F055007C4500 /* TJUserCenterHeaderView.m */; };
+		3CD7A6EA2148F5C9007C4500 /* UIButton+TJinitialize.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6E92148F5C9007C4500 /* UIButton+TJinitialize.m */; };
+		3CD7A6ED2149001E007C4500 /* TJUserCenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6EC2149001E007C4500 /* TJUserCenterTableViewCell.m */; };
+		3CD7A6F021490E41007C4500 /* TJUserCenterItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6EF21490E41007C4500 /* TJUserCenterItemModel.m */; };
+		3CD7A6F3214A084B007C4500 /* TJSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6F2214A084B007C4500 /* TJSettingViewController.m */; };
+		3CD7A6F6214A0A3D007C4500 /* TJSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6F5214A0A3D007C4500 /* TJSettingTableViewCell.m */; };
+		3CD7A6F9214A0A78007C4500 /* TJSettingItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6F8214A0A78007C4500 /* TJSettingItemModel.m */; };
+		3CD7A6FC214A3BEC007C4500 /* TJPersonalInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6FB214A3BEC007C4500 /* TJPersonalInformationViewController.m */; };
+		3CD7A6FF214A4311007C4500 /* TJPersonalInformationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A6FE214A4311007C4500 /* TJPersonalInformationTableViewCell.m */; };
+		3CD7A702214A432B007C4500 /* TJPersonalInformationItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A701214A432B007C4500 /* TJPersonalInformationItemModel.m */; };
+		3CD7A705214A5234007C4500 /* TJMendPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A704214A5234007C4500 /* TJMendPhoneNumberViewController.m */; };
+		3CD7A708214A6DE8007C4500 /* MBProgressHUD+Nero.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A707214A6DE8007C4500 /* MBProgressHUD+Nero.m */; };
 		A931C9204F9A81FCA3338F57 /* libPods-ShareAunt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8966A8292CE74F6E1FA8C8A2 /* libPods-ShareAunt.a */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +67,47 @@
 		3CD7A6B0214665CB007C4500 /* TJLogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJLogInViewController.m; sourceTree = "<group>"; };
 		3CD7A6B2214665F0007C4500 /* TJSigninViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJSigninViewController.h; sourceTree = "<group>"; };
 		3CD7A6B3214665F0007C4500 /* TJSigninViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJSigninViewController.m; sourceTree = "<group>"; };
+		3CD7A6B5214762F3007C4500 /* Motif.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Motif.h; sourceTree = "<group>"; };
+		3CD7A6B6214772B1007C4500 /* TJForgetPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJForgetPasswordViewController.h; sourceTree = "<group>"; };
+		3CD7A6B7214772B1007C4500 /* TJForgetPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJForgetPasswordViewController.m; sourceTree = "<group>"; };
+		3CD7A6B9214795F5007C4500 /* TJInputVerificationCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJInputVerificationCodeViewController.h; sourceTree = "<group>"; };
+		3CD7A6BA214795F5007C4500 /* TJInputVerificationCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJInputVerificationCodeViewController.m; sourceTree = "<group>"; };
+		3CD7A6BC21479BB8007C4500 /* TJResetPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJResetPasswordViewController.h; sourceTree = "<group>"; };
+		3CD7A6BD21479BB8007C4500 /* TJResetPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJResetPasswordViewController.m; sourceTree = "<group>"; };
+		3CD7A6BF2147A55B007C4500 /* TJPasswordTextFeld.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJPasswordTextFeld.h; sourceTree = "<group>"; };
+		3CD7A6C02147A55B007C4500 /* TJPasswordTextFeld.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJPasswordTextFeld.m; sourceTree = "<group>"; };
+		3CD7A6C22147C5E3007C4500 /* TJVerificationCodeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJVerificationCodeButton.h; sourceTree = "<group>"; };
+		3CD7A6C32147C5E3007C4500 /* TJVerificationCodeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJVerificationCodeButton.m; sourceTree = "<group>"; };
+		3CD7A6DC2148DCB0007C4500 /* UILabel+Attribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+Attribute.h"; sourceTree = "<group>"; };
+		3CD7A6DD2148DCB0007C4500 /* UILabel+Attribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Attribute.m"; sourceTree = "<group>"; };
+		3CD7A6DF2148DEB6007C4500 /* UILabel+Initialize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+Initialize.h"; sourceTree = "<group>"; };
+		3CD7A6E02148DEB6007C4500 /* UILabel+Initialize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Initialize.m"; sourceTree = "<group>"; };
+		3CD7A6E22148EE41007C4500 /* TJBasicTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJBasicTableView.h; sourceTree = "<group>"; };
+		3CD7A6E32148EE41007C4500 /* TJBasicTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJBasicTableView.m; sourceTree = "<group>"; };
+		3CD7A6E52148F055007C4500 /* TJUserCenterHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJUserCenterHeaderView.h; sourceTree = "<group>"; };
+		3CD7A6E62148F055007C4500 /* TJUserCenterHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJUserCenterHeaderView.m; sourceTree = "<group>"; };
+		3CD7A6E82148F5C8007C4500 /* UIButton+TJinitialize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+TJinitialize.h"; sourceTree = "<group>"; };
+		3CD7A6E92148F5C9007C4500 /* UIButton+TJinitialize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+TJinitialize.m"; sourceTree = "<group>"; };
+		3CD7A6EB2149001E007C4500 /* TJUserCenterTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJUserCenterTableViewCell.h; sourceTree = "<group>"; };
+		3CD7A6EC2149001E007C4500 /* TJUserCenterTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJUserCenterTableViewCell.m; sourceTree = "<group>"; };
+		3CD7A6EE21490E41007C4500 /* TJUserCenterItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJUserCenterItemModel.h; sourceTree = "<group>"; };
+		3CD7A6EF21490E41007C4500 /* TJUserCenterItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJUserCenterItemModel.m; sourceTree = "<group>"; };
+		3CD7A6F1214A084B007C4500 /* TJSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJSettingViewController.h; sourceTree = "<group>"; };
+		3CD7A6F2214A084B007C4500 /* TJSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJSettingViewController.m; sourceTree = "<group>"; };
+		3CD7A6F4214A0A3D007C4500 /* TJSettingTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJSettingTableViewCell.h; sourceTree = "<group>"; };
+		3CD7A6F5214A0A3D007C4500 /* TJSettingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJSettingTableViewCell.m; sourceTree = "<group>"; };
+		3CD7A6F7214A0A78007C4500 /* TJSettingItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJSettingItemModel.h; sourceTree = "<group>"; };
+		3CD7A6F8214A0A78007C4500 /* TJSettingItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJSettingItemModel.m; sourceTree = "<group>"; };
+		3CD7A6FA214A3BEC007C4500 /* TJPersonalInformationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJPersonalInformationViewController.h; sourceTree = "<group>"; };
+		3CD7A6FB214A3BEC007C4500 /* TJPersonalInformationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJPersonalInformationViewController.m; sourceTree = "<group>"; };
+		3CD7A6FD214A4311007C4500 /* TJPersonalInformationTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJPersonalInformationTableViewCell.h; sourceTree = "<group>"; };
+		3CD7A6FE214A4311007C4500 /* TJPersonalInformationTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJPersonalInformationTableViewCell.m; sourceTree = "<group>"; };
+		3CD7A700214A432B007C4500 /* TJPersonalInformationItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJPersonalInformationItemModel.h; sourceTree = "<group>"; };
+		3CD7A701214A432B007C4500 /* TJPersonalInformationItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJPersonalInformationItemModel.m; sourceTree = "<group>"; };
+		3CD7A703214A5234007C4500 /* TJMendPhoneNumberViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJMendPhoneNumberViewController.h; sourceTree = "<group>"; };
+		3CD7A704214A5234007C4500 /* TJMendPhoneNumberViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMendPhoneNumberViewController.m; sourceTree = "<group>"; };
+		3CD7A706214A6DE8007C4500 /* MBProgressHUD+Nero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Nero.h"; sourceTree = "<group>"; };
+		3CD7A707214A6DE8007C4500 /* MBProgressHUD+Nero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Nero.m"; sourceTree = "<group>"; };
 		76BBE3A62A1F57B91D4B14F5 /* Pods-ShareAunt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareAunt.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShareAunt/Pods-ShareAunt.release.xcconfig"; sourceTree = "<group>"; };
 		82E6F586D4C983685630BDE7 /* Pods-ShareAunt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareAunt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShareAunt/Pods-ShareAunt.debug.xcconfig"; sourceTree = "<group>"; };
 		8966A8292CE74F6E1FA8C8A2 /* libPods-ShareAunt.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShareAunt.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +177,7 @@
 		3CD7A68E214649BA007C4500 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3CD7A6DA2148DC3C007C4500 /* Other */,
 				3CD7A6AA21466439007C4500 /* LogInAndSignIn */,
 				3CD7A6A3214659BF007C4500 /* UserCenter */,
 				3CD7A69121464A53007C4500 /* Config */,
@@ -144,6 +206,8 @@
 				3CD7A69621464B1E007C4500 /* TJNavigationController.m */,
 				3CD7A69821464BB7007C4500 /* TJBasicTabBarController.h */,
 				3CD7A69921464BB7007C4500 /* TJBasicTabBarController.m */,
+				3CD7A6E22148EE41007C4500 /* TJBasicTableView.h */,
+				3CD7A6E32148EE41007C4500 /* TJBasicTableView.m */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -153,6 +217,7 @@
 			children = (
 				3CD7A6A121464CA1007C4500 /* PrefixHeader.pch */,
 				3CD7A6A221464CDD007C4500 /* Define.h */,
+				3CD7A6B5214762F3007C4500 /* Motif.h */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -193,6 +258,12 @@
 		3CD7A6A4214659D0007C4500 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3CD7A6EE21490E41007C4500 /* TJUserCenterItemModel.h */,
+				3CD7A6EF21490E41007C4500 /* TJUserCenterItemModel.m */,
+				3CD7A6F7214A0A78007C4500 /* TJSettingItemModel.h */,
+				3CD7A6F8214A0A78007C4500 /* TJSettingItemModel.m */,
+				3CD7A700214A432B007C4500 /* TJPersonalInformationItemModel.h */,
+				3CD7A701214A432B007C4500 /* TJPersonalInformationItemModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -200,6 +271,14 @@
 		3CD7A6A5214659E1007C4500 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3CD7A6E52148F055007C4500 /* TJUserCenterHeaderView.h */,
+				3CD7A6E62148F055007C4500 /* TJUserCenterHeaderView.m */,
+				3CD7A6EB2149001E007C4500 /* TJUserCenterTableViewCell.h */,
+				3CD7A6EC2149001E007C4500 /* TJUserCenterTableViewCell.m */,
+				3CD7A6F4214A0A3D007C4500 /* TJSettingTableViewCell.h */,
+				3CD7A6F5214A0A3D007C4500 /* TJSettingTableViewCell.m */,
+				3CD7A6FD214A4311007C4500 /* TJPersonalInformationTableViewCell.h */,
+				3CD7A6FE214A4311007C4500 /* TJPersonalInformationTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -209,6 +288,12 @@
 			children = (
 				3CD7A6A721465AC6007C4500 /* TJUserCenterViewController.h */,
 				3CD7A6A821465AC6007C4500 /* TJUserCenterViewController.m */,
+				3CD7A6F1214A084B007C4500 /* TJSettingViewController.h */,
+				3CD7A6F2214A084B007C4500 /* TJSettingViewController.m */,
+				3CD7A6FA214A3BEC007C4500 /* TJPersonalInformationViewController.h */,
+				3CD7A6FB214A3BEC007C4500 /* TJPersonalInformationViewController.m */,
+				3CD7A703214A5234007C4500 /* TJMendPhoneNumberViewController.h */,
+				3CD7A704214A5234007C4500 /* TJMendPhoneNumberViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -233,6 +318,10 @@
 		3CD7A6AD21466528007C4500 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3CD7A6BF2147A55B007C4500 /* TJPasswordTextFeld.h */,
+				3CD7A6C02147A55B007C4500 /* TJPasswordTextFeld.m */,
+				3CD7A6C22147C5E3007C4500 /* TJVerificationCodeButton.h */,
+				3CD7A6C32147C5E3007C4500 /* TJVerificationCodeButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -244,8 +333,37 @@
 				3CD7A6B0214665CB007C4500 /* TJLogInViewController.m */,
 				3CD7A6B2214665F0007C4500 /* TJSigninViewController.h */,
 				3CD7A6B3214665F0007C4500 /* TJSigninViewController.m */,
+				3CD7A6B6214772B1007C4500 /* TJForgetPasswordViewController.h */,
+				3CD7A6B7214772B1007C4500 /* TJForgetPasswordViewController.m */,
+				3CD7A6B9214795F5007C4500 /* TJInputVerificationCodeViewController.h */,
+				3CD7A6BA214795F5007C4500 /* TJInputVerificationCodeViewController.m */,
+				3CD7A6BC21479BB8007C4500 /* TJResetPasswordViewController.h */,
+				3CD7A6BD21479BB8007C4500 /* TJResetPasswordViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		3CD7A6DA2148DC3C007C4500 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				3CD7A6DB2148DC47007C4500 /* Category */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		3CD7A6DB2148DC47007C4500 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				3CD7A6DC2148DCB0007C4500 /* UILabel+Attribute.h */,
+				3CD7A6DD2148DCB0007C4500 /* UILabel+Attribute.m */,
+				3CD7A6DF2148DEB6007C4500 /* UILabel+Initialize.h */,
+				3CD7A6E02148DEB6007C4500 /* UILabel+Initialize.m */,
+				3CD7A6E82148F5C8007C4500 /* UIButton+TJinitialize.h */,
+				3CD7A6E92148F5C9007C4500 /* UIButton+TJinitialize.m */,
+				3CD7A706214A6DE8007C4500 /* MBProgressHUD+Nero.h */,
+				3CD7A707214A6DE8007C4500 /* MBProgressHUD+Nero.m */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 		753077B4425C25EC6B471BAD /* Frameworks */ = {
@@ -378,15 +496,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CD7A6FF214A4311007C4500 /* TJPersonalInformationTableViewCell.m in Sources */,
+				3CD7A6DE2148DCB0007C4500 /* UILabel+Attribute.m in Sources */,
 				3CD7A6B1214665CB007C4500 /* TJLogInViewController.m in Sources */,
 				3CD7A69421464AF8007C4500 /* TJBasicViewController.m in Sources */,
+				3CD7A6B8214772B1007C4500 /* TJForgetPasswordViewController.m in Sources */,
+				3CD7A6EA2148F5C9007C4500 /* UIButton+TJinitialize.m in Sources */,
 				3CD7A69D21464BD3007C4500 /* TJHomeViewController.m in Sources */,
+				3CD7A6F6214A0A3D007C4500 /* TJSettingTableViewCell.m in Sources */,
+				3CD7A705214A5234007C4500 /* TJMendPhoneNumberViewController.m in Sources */,
 				3CD7A69721464B1E007C4500 /* TJNavigationController.m in Sources */,
+				3CD7A6F021490E41007C4500 /* TJUserCenterItemModel.m in Sources */,
+				3CD7A6ED2149001E007C4500 /* TJUserCenterTableViewCell.m in Sources */,
+				3CD7A6F3214A084B007C4500 /* TJSettingViewController.m in Sources */,
 				3CD7A6A921465AC6007C4500 /* TJUserCenterViewController.m in Sources */,
+				3CD7A6E72148F055007C4500 /* TJUserCenterHeaderView.m in Sources */,
+				3CD7A702214A432B007C4500 /* TJPersonalInformationItemModel.m in Sources */,
 				3CD7A69A21464BB7007C4500 /* TJBasicTabBarController.m in Sources */,
 				3CD7A68621464953007C4500 /* main.m in Sources */,
+				3CD7A6E42148EE41007C4500 /* TJBasicTableView.m in Sources */,
+				3CD7A708214A6DE8007C4500 /* MBProgressHUD+Nero.m in Sources */,
 				3CD7A67821464951007C4500 /* AppDelegate.m in Sources */,
+				3CD7A6E12148DEB6007C4500 /* UILabel+Initialize.m in Sources */,
+				3CD7A6C42147C5E3007C4500 /* TJVerificationCodeButton.m in Sources */,
+				3CD7A6F9214A0A78007C4500 /* TJSettingItemModel.m in Sources */,
+				3CD7A6C12147A55B007C4500 /* TJPasswordTextFeld.m in Sources */,
+				3CD7A6BE21479BB8007C4500 /* TJResetPasswordViewController.m in Sources */,
 				3CD7A6B4214665F0007C4500 /* TJSigninViewController.m in Sources */,
+				3CD7A6FC214A3BEC007C4500 /* TJPersonalInformationViewController.m in Sources */,
+				3CD7A6BB214795F5007C4500 /* TJInputVerificationCodeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

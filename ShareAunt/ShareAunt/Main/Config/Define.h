@@ -88,6 +88,11 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
+#define SCALE_W(w,h) (w*1.0f/h*1.0f)
+#define SCALE_H(w,h) (h*1.0f/w*1.0f)
+#define SCALE_Y(y) (y*1.0f/667.0f)
+#define SCALE_X(x) (x*1.0f/375.0f)
+
 /** 状态条高度*/
 #define SIZE_STATUSBAR_HEIGHT 20
 /**导航条高度*/
