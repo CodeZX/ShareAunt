@@ -92,6 +92,8 @@
 #define SCALE_H(w,h) (h*1.0f/w*1.0f)
 #define SCALE_Y(y) (y*1.0f/667.0f)
 #define SCALE_X(x) (x*1.0f/375.0f)
+#define SCALE_k(k1,k2) (k1*1.0f/k2*1.0f)
+
 
 /** 状态条高度*/
 #define SIZE_STATUSBAR_HEIGHT 20

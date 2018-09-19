@@ -12,6 +12,7 @@
 #import "TJUserCenterItemModel.h"
 #import "TJSettingViewController.h"
 #import "TJPersonalInformationViewController.h"
+#import "TJCertificationMaterialsViewController.h"
 
 
 
@@ -121,10 +122,15 @@
 
 #pragma mark -------------------------- lazy load ----------------------------------------
 - (NSArray *)items {
+    __weak typeof(self) weakSelf = self;
     if (!_items) {
+        
         _items = @[ [[TJUserCenterItemModel alloc]initWithTitle:@"认证资料" imageName:@"data" block:^{
             
             DEBUG_LOG(@"%@",@"认证资料");
+            TJCertificationMaterialsViewController *VC  =  [[TJCertificationMaterialsViewController alloc]init];
+            [weakSelf.navigationController pushViewController:VC animated:YES];
+
                     }],
                     
                     [[TJUserCenterItemModel alloc]initWithTitle:@"客服中心" imageName:@"service" block:^{
