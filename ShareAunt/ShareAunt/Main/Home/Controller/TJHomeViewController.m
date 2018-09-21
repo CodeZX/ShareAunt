@@ -28,11 +28,20 @@ static NSString *identifier = @"TJHomeCollectionViewCell";
     [self setupUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+//    self.navigationController.navigationBar.hidden = YES;
+}
+
 - (void)setupUI {
+    
     
     
     self.title = @"首页";
     self.view.backgroundColor = [UIColor whiteColor];
+    
+//    [self setAdditionalSafeAreaInsets:UIEdgeInsetsMake(0, 0, -70, 0)];
     
 //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"useravatar"] style:UIBarButtonItemStylePlain target:self action:@selector(leftBarBauttonClicked:)];
 //
@@ -45,27 +54,27 @@ static NSString *identifier = @"TJHomeCollectionViewCell";
        
     }];
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake(SCREEN_WIDTH , SCREEN_WIDTH *SCALE_H(357, 253));
-     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    //    layout.minimumLineSpacing = 0;
-    CGFloat X,Y,W,H;
-    X = 0;
-    Y = SCREEN_WIDTH * SCALE_H(375, 250);
-    W = SCREEN_WIDTH;
-    H = SCREEN_WIDTH *SCALE_H(357, 253);
-    UICollectionView *collecttionView = [[UICollectionView alloc]initWithFrame:CGRectMake(X, Y, W, H) collectionViewLayout:layout];
-    collecttionView.backgroundColor = [UIColor whiteColor];
-    collecttionView.delegate = self;
-    collecttionView.dataSource = self;
-//    collecttionView.contentInset = UIEdgeInsetsMake(20, 15, 0, 15);
-    [self.view addSubview:collecttionView];
-    self.collectionView = collecttionView;
-//        self.collectionView.mj_header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-//        [self.collectionView.mj_header beginRefreshing];
-    [self.collectionView registerClass:[TJHomeCollectionViewCell class] forCellWithReuseIdentifier:identifier];
-//    [self.collectionView registerClass:[TJHomeHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TJHomeHeaderView"];
-//    [self.collectionView registerClass:[TJHomeToolBar class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"TJHomeToolBar"];
+////    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+////    layout.itemSize = CGSizeMake(SCREEN_WIDTH , SCREEN_WIDTH *SCALE_H(357, 253));
+////     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+////    //    layout.minimumLineSpacing = 0;
+////    CGFloat X,Y,W,H;
+////    X = 0;
+////    Y = SCREEN_WIDTH * SCALE_H(375, 250);
+////    W = SCREEN_WIDTH;
+////    H = SCREEN_WIDTH *SCALE_H(357, 253);
+////    UICollectionView *collecttionView = [[UICollectionView alloc]initWithFrame:CGRectMake(X, Y, W, H) collectionViewLayout:layout];
+////    collecttionView.backgroundColor = [UIColor whiteColor];
+////    collecttionView.delegate = self;
+////    collecttionView.dataSource = self;
+//////    collecttionView.contentInset = UIEdgeInsetsMake(20, 15, 0, 15);
+////    [self.view addSubview:collecttionView];
+////    self.collectionView = collecttionView;
+////        self.collectionView.mj_header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+////        [self.collectionView.mj_header beginRefreshing];
+//    [self.collectionView registerClass:[TJHomeCollectionViewCell class] forCellWithReuseIdentifier:identifier];
+////    [self.collectionView registerClass:[TJHomeHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TJHomeHeaderView"];
+////    [self.collectionView registerClass:[TJHomeToolBar class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"TJHomeToolBar"];
     
     
     TJHomeToolBar *toolBar = [[TJHomeToolBar alloc]init];
@@ -73,7 +82,7 @@ static NSString *identifier = @"TJHomeCollectionViewCell";
     [self.view addSubview:toolBar];
     [toolBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(weakSelf.view);
-        make.bottom.equalTo(weakSelf.view.bottom).offset(-70);
+        make.bottom.equalTo(weakSelf.view.bottom).offset(-88);
 //        make.height.equalTo(toolBar.width).multipliedBy(SCALE_H(375, 100));
         make.height.equalTo(100);
     }];

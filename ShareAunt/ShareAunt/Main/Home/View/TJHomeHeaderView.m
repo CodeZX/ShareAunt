@@ -29,6 +29,8 @@
     self.backgroundColor = MOTIf_BACKGROUND_COLOR;
     __weak typeof(self) weakSelf = self;
     UILabel *scoreValueLab = [UILabel labelWithText:@"95分" textColor:[UIColor whiteColor] fontName:@"PingFang-SC-Medium" fontSize:70 wordSpace:5];
+    scoreValueLab.text = @"95分";
+    [scoreValueLab setFontSizeForLastCharacter:30];
 //    scoreValueLab.backgroundColor = [UIColor  redColor];
     [self addSubview:scoreValueLab];
     self.scoreValueLab = scoreValueLab;
@@ -36,21 +38,24 @@
         make.centerX.equalTo(weakSelf);
         make.top.equalTo(weakSelf.bottom).multipliedBy(SCALE_k(38, 350));
     }];
-    
-    UILabel *scoreLab = [UILabel labelWithText:@"服务分" textColor:[UIColor whiteColor] fontName:@"PingFang-SC-Light" fontSize:18 wordSpace:5];
+
+    UILabel *scoreLab = [UILabel labelWithText:@"服务分" textColor:[UIColor whiteColor] fontName:@"PingFang-SC-Light" fontSize:18 wordSpace:0];
 //    scoreLab.backgroundColor = [UIColor redColor];
+//    [scoreLab setFontSizeForLastCharacter:30];
     [self addSubview:scoreLab];
 //    self.scoreValueLab = scoreValueLab;
     [scoreLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf);
-        make.top.equalTo(weakSelf.scoreValueLab.bottom);
+        make.top.equalTo(weakSelf.scoreValueLab.bottom).offset(-10);
     }];
     
     
     
-    UILabel *orderValueLab = [UILabel labelWithText:@"0单" textColor:[UIColor whiteColor] fontName:@"PingFang-SC-Bold" fontSize:30 wordSpace:5];
-    //    scoreLab.backgroundColor = [UIColor redColor];
-    orderValueLab.textAlignment = NSTextAlignmentCenter;
+    UILabel *orderValueLab = [UILabel labelWithText:@"10单" textColor:[UIColor whiteColor] fontName:@"PingFang-SC-Medium" fontSize:30 wordSpace:5];
+    //    scoreLab.backgroundColor = [UIColor redColor]; PingFang-SC-Bold
+//    orderValueLab.font = [UIFont systemFontOfSize:30];
+    [orderValueLab setFontSizeForLastCharacter:16];
+//    orderValueLab.textAlignment = NSTextAlignmentCenter;
     [self addSubview:orderValueLab];
     //    self.scoreValueLab = scoreValueLab;
     [orderValueLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,6 +64,7 @@
     }];
     
     UILabel *orderLab = [UILabel labelWithText:@"今日接单" textColor:[UIColor jk_colorWithHex:0x909090] fontName:@"PingFang-SC-Regular" fontSize:12 wordSpace:0];
+//    [orderLab setFontSizeForLastCharacter:20];
     //    scoreLab.backgroundColor = [UIColor redColor];
     orderLab.textAlignment = NSTextAlignmentCenter;
     [self addSubview:orderLab];
@@ -77,10 +83,12 @@
         make.top.equalTo(orderValueLab);
         make.centerX.equalTo(weakSelf);
     }];
-    
-    
-    UILabel *incomeValueLab = [UILabel labelWithText:@"0元" textColor:[UIColor whiteColor] fontName:@"PingFang-SC-Bold" fontSize:30 wordSpace:5];
+
+
+    UILabel *incomeValueLab = [UILabel labelWithText:@"10元" textColor:[UIColor whiteColor] fontName:@"PingFang-SC-Medium" fontSize:30 wordSpace:5];
+    [incomeValueLab setFontSizeForLastCharacter:16];
     //    scoreLab.backgroundColor = [UIColor redColor];
+    [incomeValueLab setFontSizeForLastCharacter:16];
     incomeValueLab.textAlignment = NSTextAlignmentCenter;
     [self addSubview:incomeValueLab];
     //    self.scoreValueLab = scoreValueLab;
@@ -88,9 +96,9 @@
         make.left.equalTo(weakSelf.right).multipliedBy(SCALE_k(255, 375));
         make.top.equalTo(weakSelf.bottom).multipliedBy(SCALE_k(161, 250));
     }];
-    
+
     UILabel *incomeLab = [UILabel labelWithText:@"今日收益" textColor:[UIColor jk_colorWithHex:0x909090] fontName:@"PingFang-SC-Regular" fontSize:12 wordSpace:0];
-    incomeValueLab.textAlignment = NSTextAlignmentCenter;
+    incomeLab.textAlignment = NSTextAlignmentCenter;
     //    scoreLab.backgroundColor = [UIColor redColor];
     [self addSubview:incomeLab];
     //    self.scoreValueLab = scoreValueLab;
@@ -98,7 +106,7 @@
         make.centerX.equalTo(incomeValueLab);
         make.top.equalTo(incomeValueLab.bottom);
     }];
-    
+//
     
 
 }

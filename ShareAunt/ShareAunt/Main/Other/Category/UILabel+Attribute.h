@@ -26,4 +26,5 @@
 + (void)changeSpaceForLabel:(UILabel *)label withLineSpace:(float)lineSpace WordSpace:(float)wordSpace;
 
 
+- (void)setFontSizeForLastCharacter:(CGFloat)fontSize;
 @end

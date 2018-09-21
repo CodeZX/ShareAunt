@@ -23,8 +23,9 @@
     ;
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     //    [[UINavigationBar appearance] setBarTintColor:[UIColor jk_colorWithHex:0x1C1C22]];
-    UIImage *bgImage = [UIImage jk_imageWithColor:[UIColor jk_colorWithHex:0x1C1C22]];
+    UIImage *bgImage = [UIImage jk_imageWithColor:MOTIf_BACKGROUND_COLOR];
     [[UINavigationBar appearance] setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:bgImage];
 
 //     设置字体颜色大小
     NSMutableDictionary * dictM = [NSMutableDictionary dictionary];
