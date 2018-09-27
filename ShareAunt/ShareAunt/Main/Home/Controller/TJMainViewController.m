@@ -9,6 +9,7 @@
 #import "TJMainViewController.h"
 #import "TJHomeViewController.h"
 #import "TJAuntExistenceViewController.h"
+#import "TJUserCenterViewController.h"
 
 @interface TJMainViewController ()
 
@@ -51,7 +52,8 @@
 
 - (void)leftBarButtonItemClicked:(id)sender {
     
-    
+    TJUserCenterViewController *VC = [[TJUserCenterViewController alloc]init];
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 - (void)rightBarButtonItemClicked:(id)sender {

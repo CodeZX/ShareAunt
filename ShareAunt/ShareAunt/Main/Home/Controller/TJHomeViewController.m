@@ -13,6 +13,7 @@
 #import "TJHomeHeaderView.h"
 #import "TJModeSettingViewController.h"
 
+
 static NSString *identifier = @"TJHomeCollectionViewCell";
 @interface TJHomeViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,TJHomeToolBarDelegate>
 

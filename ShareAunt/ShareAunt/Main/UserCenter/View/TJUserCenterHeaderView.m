@@ -111,6 +111,7 @@
     UIButton *walletBtn = [UIButton buttonWithTitle:@"我的钱包" imageName:@"wallet-1"];
 //    walletBtn.backgroundColor = [UIColor redColor];
     walletBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [walletBtn addTarget:self action:@selector(walletBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [menuView addSubview:walletBtn];
     [walletBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(menuView);
@@ -124,10 +125,11 @@
     
     
     
-    UIButton *orderBtn = [UIButton buttonWithTitle:@"我的钱包" imageName:@"order-1"];
+    UIButton *orderBtn = [UIButton buttonWithTitle:@"我的订单" imageName:@"order-1"];
     //    walletBtn.backgroundColor = [UIColor redColor];
     orderBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     //    walletBtn.imageView.frame = CGRectMake(0, 0, 56, 56);
+    [orderBtn addTarget:self action:@selector(orderBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [menuView addSubview:orderBtn];
     [orderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(menuView);
@@ -136,7 +138,7 @@
     }];
     [orderBtn jk_setImagePosition:(LXMImagePositionTop) spacing:5];
     
-    UIButton *integralBtn = [UIButton buttonWithTitle:@"我的钱包" imageName:@"integral-1"];
+    UIButton *integralBtn = [UIButton buttonWithTitle:@"我的积分" imageName:@"integral-1"];
 //    integralBtn.backgroundColor = [UIColor redColor];
     integralBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     //    walletBtn.imageView.frame = CGRectMake(0, 0, 56, 56);
@@ -163,6 +165,19 @@
     
     if ([self.delegate respondsToSelector:@selector(userCenterHeaderView:didPortraitClicked:)]) {
         [self.delegate userCenterHeaderView:self didPortraitClicked:self.portraitImaV];
+    }
+}
+
+- (void)orderBtnClicked:(UIButton *)btn {
+    if ([self.delegate respondsToSelector:@selector(userCenterHeaderView:didOrderClicked:)]) {
+        [self.delegate userCenterHeaderView:self didOrderClicked:btn];
+    }
+
+}
+
+- (void)walletBtnClicked:(UIButton *)btn  {
+    if ([self.delegate respondsToSelector:@selector(userCenterHeaderView:didWalletClicked:)]) {
+        [self.delegate userCenterHeaderView:self didWalletClicked:btn];
     }
 }
 @end

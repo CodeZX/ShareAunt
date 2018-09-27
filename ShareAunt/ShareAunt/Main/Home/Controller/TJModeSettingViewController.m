@@ -10,8 +10,9 @@
 #import "TJModeSettingRealTimeView.h"
 #import "TJModeSettingBespeakView.h"
 #import "TJModeSettingAllView.h"
+#import "TJAreaSelectViewController.h"
 
-@interface TJModeSettingViewController ()
+@interface TJModeSettingViewController ()<TJModeSettingRealTimeViewDelegate>
 
 @property (nonatomic,weak) UILabel *titleLab;
 @property (nonatomic,weak) UISegmentedControl *segment;
@@ -136,11 +137,11 @@
         make.top.equalTo(weakSelf.segment.bottom).offset(10);
         make.left.right.equalTo(weakSelf.view);
 //        make.bottom.equalTo(weakSelf.saveBtn.top).offset(-30);
-        make.height.equalTo(300);
+        make.height.equalTo(SCREEN_HEIGHT - SIZE_NAVBAR_HEIGHT);
     }];
     
     UIView *containerView = [[UIView alloc]init];
-    containerView.backgroundColor = [UIColor lightGrayColor];
+    containerView.backgroundColor = MOTIf_BACKGROUND_COLOR;
     [self.scrollView addSubview:containerView];
     [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(scrollView);
@@ -179,9 +180,12 @@
     
     
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark -------------------------- Delegate ----------------------------------------
+#pragma mark TJModeSettingRealTimeViewDelegate
+- (void)modeSettingRealTimeView:(TJModeSettingRealTimeView *)modeSettingRealTimeView didAreaSelect:(UIButton *)AreaSelectBtn {
+    
+    TJAreaSelectViewController *VC = [[TJAreaSelectViewController alloc]init];
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 #pragma mark -------------------------- lazy load ----------------------------------------
@@ -194,6 +198,7 @@
 //        W = SCREEN_WIDTH;
 //        H = 200;
         _realTimeView  = [[TJModeSettingRealTimeView alloc]init];
+        _realTimeView.delegate = self;
 //        [self.view addSubview:_realTimeView];
         
     }

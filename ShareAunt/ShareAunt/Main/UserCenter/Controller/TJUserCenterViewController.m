@@ -13,6 +13,8 @@
 #import "TJSettingViewController.h"
 #import "TJPersonalInformationViewController.h"
 #import "TJCertificationMaterialsViewController.h"
+#import "TJMyOrderViewController.h"
+#import "TJMyWalletViewController.h"
 
 
 
@@ -119,6 +121,17 @@
     
 }
 
+- (void)userCenterHeaderView:(TJUserCenterHeaderView *)userCenterHeaderView didOrderClicked:(UIButton *)orderBtn {
+    
+    TJMyOrderViewController *VC = [[TJMyOrderViewController alloc]init];
+    [self.navigationController pushViewController:VC animated:YES];
+}
+
+- (void)userCenterHeaderView:(TJUserCenterHeaderView *)userCenterHeaderView didWalletClicked:(UIButton *)walletBtn {
+    
+    TJMyWalletViewController *VC = [[TJMyWalletViewController alloc]init];
+    [self.navigationController pushViewController:VC animated:YES];
+}
 
 #pragma mark -------------------------- lazy load ----------------------------------------
 - (NSArray *)items {
