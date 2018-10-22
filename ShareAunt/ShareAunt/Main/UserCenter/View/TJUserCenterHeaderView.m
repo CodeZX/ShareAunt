@@ -25,11 +25,27 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setupUI];
+        if ([[UsersManager sharedUsersManager] isLogin]) {
+            [self setupUI];
+        }else {
+            [self setupNotLoggedInView];
+        }
+        
     }
     return self;
 }
 
+
+- (void)upDateUI {
+    
+    [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+
+    if ([[UsersManager sharedUsersManager] isLogin]) {
+        [self setupUI];
+    }else {
+        [self setupNotLoggedInView];
+    }
+}
 
 - (void)setupUI {
     
@@ -63,7 +79,12 @@
         make.size.equalTo(CGSizeMake(45, 20));
     }];
     
-    UILabel *gradelab = [UILabel labelWithText:@"4.9" textColor:[UIColor jk_colorWithHex:0xF6D600] fontName:@"PingFang-SC-Medium" fontSize:12 wordSpace:4];
+    UILabel *gradelab = [UILabel labelWithText:@"4.9" textColor:[UIColor jk_colorWithHex:0xF6D600] fontName:@"PingFang-SC-Medium" fontSize:12 wordSpace:0];
+    [gradeImaV addSubview:gradelab];
+    [gradelab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(gradeImaV);
+        make.left.equalTo(gradeImaV).offset(5);
+    }];
     
     
     
@@ -94,6 +115,32 @@
     
     [self setupmenuView];
     
+    
+}
+
+- (void)setupNotLoggedInView {
+    
+    self.backgroundColor = MOTIf_BACKGROUND_COLOR;
+    __weak typeof(self) weakSelf = self;
+    
+    UIButton *titleBtn = [UIButton TJ_buttonWithTitle:@"未登录" titleColor:[UIColor whiteColor] titleFont:[UIFont systemFontOfSize:18] backgroundColor:[UIColor clearColor]];
+    titleBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    titleBtn.layer.borderWidth = 1;
+    titleBtn.layer.cornerRadius = 5;
+    titleBtn.layer.masksToBounds = YES;
+    [titleBtn addTarget:self action:@selector(notLoginClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:titleBtn];
+    [titleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(weakSelf);
+        make.size.equalTo(CGSizeMake(100, 40));
+    }];
+}
+
+- (void)notLoginClicked:(UIButton *)btn {
+    
+    if ([self.delegate respondsToSelector:@selector(userCenterHeaderView:didLogInClicked:)]) {
+        [self.delegate userCenterHeaderView:self didLogInClicked:btn];
+    }
     
 }
 - (void)setupmenuView {
@@ -157,6 +204,25 @@
         make.left.bottom.right.equalTo(weakSelf);
         make.height.equalTo(22);
     }];
+    
+}
+
+- (void)setUserModel:(userModel *)userModel {
+    _userModel = userModel;
+    self.nameLab.text = userModel.aunt_name;
+    [self.portraitImaV sd_setImageWithURL:[NSURL URLWithString:userModel.face_url] placeholderImage:[UIImage imageNamed:@"user"]];
+    
+    if ([userModel.state isEqualToString:@"0"]) {
+        self.statusLab.text = @"空闲";
+    } else if ([userModel.state isEqualToString:@"1"]) {
+        self.statusLab.text = @"在忙";
+    }
+    
+    if ([userModel.validate isEqualToString:@"0"]) {
+        self.authenticationStatusLab.text = @"未认证";
+    }else if ([userModel.validate isEqualToString:@"1"]) {
+        self.authenticationStatusLab.text = @"已认证";
+    }
     
 }
 

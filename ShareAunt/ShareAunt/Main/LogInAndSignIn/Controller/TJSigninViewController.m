@@ -4,12 +4,12 @@
 //
 //  Created by 周鑫 on 2018/9/10.
 //  Copyright © 2018年 TJ. All rights reserved.
-//
+//  注册
 
 #import "TJSigninViewController.h"
 #import "TJVerificationCodeButton.h"
 
-@interface TJSigninViewController ()
+@interface TJSigninViewController ()<UITextFieldDelegate>
 
 @property (nonatomic,weak) UIImageView *logoImageV;
 @property (nonatomic,weak) UILabel *titleLab;
@@ -29,6 +29,13 @@
     
     [self setupUI];
 }
+
+
+    
+
+    
+
+
 
 - (void)setupUI {
     
@@ -100,6 +107,8 @@
     
     
     UITextField *phoneNumberTF = [[UITextField alloc]init];
+    phoneNumberTF.delegate = self;
+    phoneNumberTF.keyboardType = UIKeyboardTypeNumberPad;
     //    phoneNumberTF.textAlignment = NSTextAlignmentCenter;
     //    phoneNumberTF.layer.borderColor = [UIColor jk_colorWithHex:0xB1B1B0].CGColor;
     //    phoneNumberTF.layer.borderWidth = 1;
@@ -107,7 +116,6 @@
     //    phoneNumberTF.layer.masksToBounds = YES;
     phoneNumberTF.clearButtonMode = UITextFieldViewModeWhileEditing;//输入框中是否有个叉号,用于一次性删除输入框中的内容
     phoneNumberTF.adjustsFontSizeToFitWidth = YES;
-    phoneNumberTF.keyboardType = UIKeyboardTypeDefault;
     phoneNumberTF.returnKeyType = UIReturnKeyNext;
     phoneNumberTF.leftView = [self setleftViewWithName:@"icon_user"];
     phoneNumberTF.leftViewMode = UITextFieldViewModeAlways;
@@ -120,7 +128,7 @@
         make.centerX.equalTo(weakSelf.inputView);
         make.left.equalTo(weakSelf.inputView);
         make.right.equalTo(weakSelf.inputView);
-        make.height.equalTo(56);
+        make.height.equalTo(weakSelf.inputView).multipliedBy(SCALE_k(56, 169));
     }];
     
    
@@ -150,12 +158,13 @@
     
     
     UITextField *verificationCodeTF = [[UITextField alloc]init];
+    verificationCodeTF.delegate = self;
+    verificationCodeTF.keyboardType = UIKeyboardTypeNumberPad;
     //    phoneNumberTF.textAlignment = NSTextAlignmentCenter;
 //    verificationCodeTF.layer.borderColor = [UIColor jk_colorWithHex:0xB1B1B0].CGColor;
 //    verificationCodeTF.layer.borderWidth = 1;
     verificationCodeTF.clearButtonMode = UITextFieldViewModeWhileEditing;//输入框中是否有个叉号,用于一次性删除输入框中的内容
     verificationCodeTF.adjustsFontSizeToFitWidth = YES;
-    verificationCodeTF.keyboardType = UIKeyboardTypeDefault;
     verificationCodeTF.returnKeyType = UIReturnKeyNext;
     verificationCodeTF.leftView = [self setleftViewWithName:@"icon_password"];
     verificationCodeTF.leftViewMode = UITextFieldViewModeAlways;
@@ -168,7 +177,7 @@
         make.centerX.equalTo(weakSelf.inputView);
         make.left.equalTo(weakSelf.inputView);
         make.right.equalTo(weakSelf.inputView);
-        make.height.equalTo(56);
+        make.height.equalTo(weakSelf.inputView).multipliedBy(SCALE_k(56, 169));
     }];
     
     
@@ -183,6 +192,7 @@
     
     
     UITextField *passwordTF = [[UITextField alloc]init];
+    passwordTF.delegate = self;
     //    phoneNumberTF.textAlignment = NSTextAlignmentCenter;
     //    passwordTF.layer.borderColor = [UIColor jk_colorWithHex:0xB1B1B0].CGColor;
     //    passwordTF.layer.borderWidth = 1;
@@ -194,7 +204,7 @@
     passwordTF.returnKeyType = UIReturnKeyNext;
     passwordTF.leftView = [self setleftViewWithName:@"icon_password"];
     passwordTF.leftViewMode = UITextFieldViewModeAlways;
-    passwordTF.placeholder = @"请输入密码";
+    passwordTF.placeholder = @"设置密码";
     passwordTF.textColor = [UIColor jk_colorWithHex:0xB1B1B0];
     [self.inputView addSubview:passwordTF];
     self.passwordTF = passwordTF;
@@ -203,7 +213,7 @@
         make.centerX.equalTo(weakSelf.inputView);
         make.left.equalTo(weakSelf.inputView);
         make.right.equalTo(weakSelf.inputView);
-        make.height.equalTo(56);
+        make.height.equalTo(weakSelf.inputView).multipliedBy(SCALE_k(56, 169));
     }];
     
     
@@ -224,12 +234,124 @@
 
 - (void)signInBtnClicked:(UIButton *)btn {
     
+    if (self.phoneNumberTF.text.length == 0) {
+        [MBProgressHUD showError:@"请输入手机号"];
+        return;
+    }
+
+    if (self.verificationCodeTF.text.length == 0) {
+        [MBProgressHUD showError:@"请输入验证码"];
+        return;
+    }
+
+    if (self.passwordTF.text.length == 0) {
+        [MBProgressHUD showMessage:@"请输入密码"];
+        return;
+    }
     
+
+    [MBProgressHUD showMessage:@"注册中..."];
+    NSDictionary *parametersDic = @{@"aunt_phone":self.phoneNumberTF.text,
+                                    @"smsCode":self.verificationCodeTF.text,
+                                    @"aunt_pwd":self.passwordTF.text
+                                    };
+    __weak typeof(self) weakSelf = self;
+    [[TJNetworking manager] post:kRegisterURL parameters:parametersDic progress:nil success:^(TJNetworkingSuccessResponse * _Nonnull response) {
+        [MBProgressHUD hideHUD];
+//        if ([response.responseObject[@"code"] isEqualToString:@"0"]) {
+//            [MBProgressHUD showSuccess:@"注册成功"];
+//        }else  {
+//
+//            [MBProgressHUD showSuccess:response.responseObject[@"message"]];
+//        }
+        if ([response.responseObject[@"code"] intValue] == 200) {
+             [MBProgressHUD showSuccess:@"注册成功"];
+            [weakSelf performSelector:@selector(backAction) withObject:nil afterDelay:0.5];
+        }else {
+             [MBProgressHUD showSuccess:response.responseObject[@"message"]];
+        }
+        
+        
+    } failed:^(TJNetworkingFailureResponse * _Nonnull response) {
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showSuccess:@"注册失败"];
+    } finished:^{
+        
+//        [MBProgressHUD hideHUD];
+        
+    }];
 }
 
+- (void)backAction {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)verificationCodeBtnClicked:(TJVerificationCodeButton *)btn {
     
-    [btn timeFailBeginFrom:60];
+    if ([self.phoneNumberTF.text jk_isMobileNumber]) {
+         [btn timeFailBeginFrom:60];
+        
+        [MBProgressHUD showMessage:@""];
+        NSDictionary *parametersDic = @{@"phone_num":self.phoneNumberTF.text};
+        [[TJNetworking manager] post:kCAPTCHAURL parameters:parametersDic progress:nil success:^(TJNetworkingSuccessResponse * _Nonnull response) {
+            if ([response.responseObject[@"code"] isEqualToString:@"0"]) {
+                
+                
+            }
+        } failed:^(TJNetworkingFailureResponse * _Nonnull response) {
+            
+        } finished:^{
+            
+            [MBProgressHUD hideHUD];
+            
+        }];
+        
+    }else {
+        
+        [MBProgressHUD showError:@"请输入有效的电话号码！"];
+        
+    }
+    
+   
+}
+
+
+#pragma mark -------------------------- Delegate ----------------------------------------
+
+//UITextField代理方法，是否允许输入
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(nonnull NSString *)string
+{
+    
+    if ([string isEqualToString:@" "]) {
+        [MBProgressHUD showError:@"无效输入"];
+        return NO;
+    }else {
+         if (textField  == self.phoneNumberTF){
+             NSCharacterSet *charSet = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
+             NSString *filteredStr = [[string componentsSeparatedByCharactersInSet:charSet] componentsJoinedByString:@""];
+             if ([string isEqualToString:filteredStr]) {
+                 return YES;
+             }else {
+                 [MBProgressHUD showError:@"请输入正确的手机号"];
+                 return NO;
+             }
+             
+        }else if (textField == self.verificationCodeTF){
+            NSCharacterSet *charSet = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
+            NSString *filteredStr = [[string componentsSeparatedByCharactersInSet:charSet] componentsJoinedByString:@""];
+            if ([string isEqualToString:filteredStr]) {
+                return YES;
+            }else {
+                [MBProgressHUD showError:@"请输入正确的验证码"];
+                return NO;
+            }
+        }else if (textField == self.passwordTF){
+            return YES;
+        }
+        
+    }
+   
+    return YES;
 }
 
 @end

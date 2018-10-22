@@ -12,7 +12,7 @@
 #import "TJModeSettingAllView.h"
 #import "TJAreaSelectViewController.h"
 
-@interface TJModeSettingViewController ()<TJModeSettingRealTimeViewDelegate>
+@interface TJModeSettingViewController ()<TJModeSettingRealTimeViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,weak) UILabel *titleLab;
 @property (nonatomic,weak) UISegmentedControl *segment;
@@ -22,6 +22,7 @@
 @property (nonatomic,strong) TJModeSettingRealTimeView *realTimeView;
 @property (nonatomic,strong) TJModeSettingBespeakView *bespeakView;
 @property (nonatomic,strong) TJModeSettingAllView *allView;
+@property (nonatomic, assign) CGFloat lastOffSetX;
 @end
 
 @implementation TJModeSettingViewController
@@ -131,6 +132,7 @@
 //    scrollView.backgroundColor = [UIColor yellowColor];
     scrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 3, 300);
     scrollView.pagingEnabled = YES;
+    scrollView.delegate = self;
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -186,6 +188,30 @@
     
     TJAreaSelectViewController *VC = [[TJAreaSelectViewController alloc]init];
     [self.navigationController pushViewController:VC animated:YES];
+}
+
+#pragma mark UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    int page =  scrollView.contentOffset.x/SCREEN_WIDTH;
+    [self.segment setSelectedSegmentIndex:page];
+    
+    
+//    NSLog(@"x==%f,y==%f",scrollView.contentOffset.x,scrollView.contentOffset.y);
+//
+//    if (scrollView.contentOffset.x - self.lastOffSetX > 0) {
+//        NSLog(@"正在向左滑动");
+//    }
+//    else {
+//        NSLog(@"正在向右滑动");
+//    }
+    
+    
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    self.lastOffSetX = scrollView.contentOffset.x;
 }
 
 #pragma mark -------------------------- lazy load ----------------------------------------

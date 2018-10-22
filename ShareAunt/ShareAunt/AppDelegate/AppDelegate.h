@@ -12,6 +12,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-
+- (void)TJ_gotoHomePage;
 @end
 

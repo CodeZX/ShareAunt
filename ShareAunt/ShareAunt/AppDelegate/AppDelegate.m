@@ -22,6 +22,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
    
+     [[TJNetworkReachabilityManager manager] startMonitoring];
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
 //    self.window.rootViewController = [[TJNavigationController alloc]initWithRootViewController:[[TJLogInViewController alloc]init]];
 //    self.window.rootViewController = [[TJNavigationController alloc]initWithRootViewController:[[TJSigninViewController alloc]init]];
@@ -60,5 +61,15 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
+#pragma mark - 加载页面
+- (void)TJ_gotoHomePage {
+    
+    TJMainViewController *MainVC = [[TJMainViewController alloc]init];
+    MainVC.selectIndex = 1;
+    MainVC.automaticallyCalculatesItemWidths = YES;
+    self.window.rootViewController = [[TJNavigationController alloc]initWithRootViewController:[[TJMainViewController alloc]init]];
+    [self.window makeKeyWindow];
+}
 
 @end

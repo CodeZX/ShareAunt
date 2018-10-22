@@ -16,9 +16,18 @@
 @property (nonatomic,weak) UITextField *passwordTF;
 @property (nonatomic,weak) UIButton *nextBtn;
 @property (nonatomic,strong) UITextField *freshPhoneNumberTF;
+@property (nonatomic,strong) NSString *phoneNumber;
 @end
 
 @implementation TJMendPhoneNumberViewController
+
+- (instancetype)initWithPhoneNumber:(NSString *)phoneNumber {
+    self = [super init];
+    if (self) {
+        self.phoneNumber = phoneNumber;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,6 +35,16 @@
     [self setupUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+   
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+}
 
 - (void)setupUI {
     
@@ -56,20 +75,14 @@
 
 - (void)nextBtnClicked:(UIButton *)btn {
     
-//    __weak typeof(self) weakSelf = self;
+    if ([self.phoneNumberTF.text jk_isMobileNumber]) {
+        [MBProgressHUD showSuccess:@"手机号码无效"];
+        return;
+    }
+    if (self.verificationCodeTF.text.length) {
+        [MBProgressHUD showSuccess:@"请输入有效验证码"];
+    }
     
-//    [self.inputView mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(weakSelf.view.left).offset(-5);
-//    }];
-//
-//    [self.freshPhoneNumberTF mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.view).offset(30);
-//    }];
-//
-//    [UIView animateWithDuration:1 animations:^{
-//        [self.inputView layoutIfNeeded];
-//        [self.freshPhoneNumberTF layoutIfNeeded];
-//    }];
     if (!_freshPhoneNumberTF) {
         [UIView animateWithDuration:1 animations:^{
             self.inputView.alpha = 0;
@@ -84,6 +97,10 @@
         }];
     } else {
         
+        if ([self.freshPhoneNumberTF.text jk_isMobileNumber]) {
+            
+            
+        }
         [MBProgressHUD show:@"成功" icon:@"successful.png" view:self.view];
     }
     
@@ -103,6 +120,7 @@
     inputViewX = (SCREEN_WIDTH - inputViewW) / 2;
     inputViewY = SCREEN_HEIGHT *SCALE_Y(50);
     UIView *inputView = [[UIView alloc]initWithFrame:CGRectMake(inputViewX, inputViewY, inputViewW, inputViewH)];
+//    UIView *inputView = [[UIView alloc]init];
     //    inputView.backgroundColor = [UIColor redColor];
     inputView.layer.cornerRadius = 5;
     inputView.layer.masksToBounds = YES;
@@ -130,16 +148,16 @@
     phoneNumberTF.returnKeyType = UIReturnKeyNext;
 //    phoneNumberTF.leftView = [self setleftViewWithName:@"icon_user"];
 //    phoneNumberTF.leftViewMode = UITextFieldViewModeAlways;
-    phoneNumberTF.placeholder = @"123****4567";
+    phoneNumberTF.placeholder = self.phoneNumber?self.phoneNumber:@"无效号码";
     phoneNumberTF.textColor = [UIColor jk_colorWithHex:0xB1B1B0];
     [self.inputView addSubview:phoneNumberTF];
     self.phoneNumberTF = phoneNumberTF;
     [self.phoneNumberTF mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.inputView);
-        make.centerX.equalTo(weakSelf.inputView);
+//        make.centerX.equalTo(weakSelf.inputView);
         make.left.equalTo(weakSelf.inputView).offset(25);
         make.right.equalTo(weakSelf.inputView);
-        make.height.equalTo(56);
+        make.height.equalTo(phoneNumberTF.width).multipliedBy(SCALE_H(315, 56));
     }];
     
     
@@ -185,10 +203,10 @@
     self.verificationCodeTF = verificationCodeTF;
     [self.verificationCodeTF mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.phoneNumberTF.bottom);
-        make.centerX.equalTo(weakSelf.inputView);
+//        make.centerX.equalTo(weakSelf.inputView);
         make.left.equalTo(weakSelf.inputView).offset(25);
         make.right.equalTo(weakSelf.inputView);
-        make.height.equalTo(56);
+        make.height.equalTo(verificationCodeTF.width).multipliedBy(SCALE_H(315, 56));
     }];
     
     
@@ -227,6 +245,34 @@
 //    }];
     
 
+}
+
+- (void)verificationCodeBtnClicked:(UIButton *)btn {
+    
+    if ([self.phoneNumberTF.text jk_isMobileNumber]) {
+       
+        
+        [MBProgressHUD showMessage:@""];
+        NSDictionary *parametersDic = @{@"phone_num":self.phoneNumberTF.text};
+        [[TJNetworking manager] post:kCAPTCHAURL parameters:parametersDic progress:nil success:^(TJNetworkingSuccessResponse * _Nonnull response) {
+            if ([response.responseObject[@"code"] isEqualToString:@"0"]) {
+                
+                
+            }
+        } failed:^(TJNetworkingFailureResponse * _Nonnull response) {
+            
+        } finished:^{
+            
+            [MBProgressHUD hideHUD];
+            
+        }];
+        
+    }else {
+        
+        [MBProgressHUD showError:@"请输入有效的电话号码！"];
+        
+    }
+    
 }
 
 - (UIView *)setleftViewWithName:(NSString *)name {

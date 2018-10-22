@@ -11,6 +11,11 @@
 #import "TJSettingTableViewCell.h"
 #import "TJUserCenterHeaderView.h"
 #import "TJMendPhoneNumberViewController.h"
+#import "TJAboutUsViewController.h"
+#import "TJFeedbackViewController.h"
+#import "TJResetPasswordViewController.h"
+#import "TJContactUsViewController.h"
+
 @interface TJSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,weak) TJBasicTableView *tableView;
@@ -55,6 +60,7 @@
     
     
     UIButton *signOutBtn = [UIButton TJ_buttonWithTitle:@"退出登录" titleColor:[UIColor whiteColor] titleFont:[UIFont fontWithName:@"PingFangSC-Regular" size:15] backgroundColor:MOTIF_BUTTON_COLOR];
+    [signOutBtn addTarget:self action:@selector(signOutBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signOutBtn];
     self.signOutBtn = signOutBtn;
     [self.signOutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -64,6 +70,18 @@
         make.height.equalTo(44);
     }];
     
+    
+}
+
+- (void)signOutBtnClicked:(UIButton *)btn {
+    
+    if ( [[UsersManager sharedUsersManager] logOut]) {
+        [MBProgressHUD showSuccess:@"退出成功"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else {
+        [MBProgressHUD showSuccess:@"退出失败"];
+    }
+   
     
 }
 - (void)didReceiveMemoryWarning {
@@ -190,12 +208,26 @@
     if (!_sectionArray) {
         __weak typeof(self) weakSelf = self;
         
-        NSArray *item0 = @[ [[TJSettingItemModel alloc]initWithTitle:@"修改密码" accessoryType:TJSettingItemAccessoryTypeIndicator block:^{
+        NSArray *item0 = @[
+                           [[TJSettingItemModel alloc]initWithTitle:@"修改密码" accessoryType:TJSettingItemAccessoryTypeIndicator block:^{
             
+                               if ([[UsersManager sharedUsersManager] isLogin]) {
+                                   TJResetPasswordViewController *VC = [[TJResetPasswordViewController alloc]init];
+                                   [self.navigationController pushViewController:VC animated:YES];
+                               }else {
+                                   [MBProgressHUD showSuccess:@"请登录！"];
+                               }
+                               
                             }],
                           [[TJSettingItemModel alloc]initWithTitle:@"修改手机号" accessoryType:TJSettingItemAccessoryTypeIndicator block:^{
-                              TJMendPhoneNumberViewController *VC = [[TJMendPhoneNumberViewController alloc]init];
-                              [weakSelf.navigationController pushViewController:VC animated:YES];
+                             
+                              if ([[UsersManager sharedUsersManager] isLogin]) {
+                                  TJMendPhoneNumberViewController *VC = [[TJMendPhoneNumberViewController alloc]init];
+                                  [weakSelf.navigationController pushViewController:VC animated:YES];
+                              }else {
+                                   [MBProgressHUD showSuccess:@"请登录！"];
+                              }
+                              
                             }]
                             ];
         NSArray *item1 = @[
@@ -205,13 +237,17 @@
                            ];
         NSArray *item2 = @[
                            [[TJSettingItemModel alloc]initWithTitle:@"意见反馈" accessoryType:TJSettingItemAccessoryTypeIndicator block:^{
-                               
+                               TJFeedbackViewController *VC = [[TJFeedbackViewController alloc]init];
+                               [self.navigationController pushViewController:VC animated:YES];
                            }],
                            [[TJSettingItemModel alloc]initWithTitle:@"联系我们" accessoryType:TJSettingItemAccessoryTypeIndicator block:^{
-                               
+                               TJContactUsViewController *VC = [[TJContactUsViewController alloc]init];
+                               [self.navigationController pushViewController:VC animated:YES];
                            }],
                            [[TJSettingItemModel alloc]initWithTitle:@"关于我们" accessoryType:TJSettingItemAccessoryTypeIndicator block:^{
                                
+                               TJAboutUsViewController *VC = [[TJAboutUsViewController alloc]init];
+                               [self.navigationController pushViewController:VC animated:YES];
                            }]
                            ];
         

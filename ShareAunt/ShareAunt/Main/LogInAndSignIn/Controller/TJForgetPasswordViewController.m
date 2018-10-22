@@ -53,7 +53,7 @@
 //    phoneNumberTF.layer.borderWidth = 1;
     phoneNumberTF.clearButtonMode = UITextFieldViewModeWhileEditing;//输入框中是否有个叉号,用于一次性删除输入框中的内容
     phoneNumberTF.adjustsFontSizeToFitWidth = YES;
-    phoneNumberTF.keyboardType = UIKeyboardTypeDefault;
+    phoneNumberTF.keyboardType = UIKeyboardTypeNumberPad;
     phoneNumberTF.returnKeyType = UIReturnKeyNext;
 //    phoneNumberTF.leftView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"my"]];
     phoneNumberTF.leftViewMode = UITextFieldViewModeAlways;
@@ -107,8 +107,32 @@
     
 }
 - (void)confirmBtnClicked:(UIButton *)btn {
-    
-    TJInputVerificationCodeViewController *VC = [[TJInputVerificationCodeViewController alloc]init];
-    [self.navigationController pushViewController:VC animated:YES];
+
+//    TJInputVerificationCodeViewController *VC = [[TJInputVerificationCodeViewController alloc]initWithPhoneNumber:self.phoneNumberTF.text];
+//    [self.navigationController pushViewController:VC animated:YES];
+    if ([self.phoneNumberTF.text jk_isMobileNumber]) {
+
+        [MBProgressHUD showMessage:@""];
+        NSDictionary *parametersDic = @{@"phone_num":self.phoneNumberTF.text};
+        [[TJNetworking manager] post:kCAPTCHAURL parameters:parametersDic progress:nil success:^(TJNetworkingSuccessResponse * _Nonnull response) {
+            if ([response.responseObject[@"code"] intValue] == 200) {
+                TJInputVerificationCodeViewController *VC = [[TJInputVerificationCodeViewController alloc]initWithPhoneNumber:self.phoneNumberTF.text];
+                [self.navigationController pushViewController:VC animated:YES];
+
+            }
+        } failed:^(TJNetworkingFailureResponse * _Nonnull response) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showSuccess:@"获取验证码失败"];
+        } finished:^{
+
+            [MBProgressHUD hideHUD];
+
+        }];
+
+    }else {
+
+        [MBProgressHUD showError:@"请输入有效的电话号码！"];
+
+    }
 }
 @end

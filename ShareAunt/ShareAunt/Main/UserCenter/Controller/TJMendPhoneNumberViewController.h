@@ -9,5 +9,5 @@
 #import "TJBasicViewController.h"
 
 @interface TJMendPhoneNumberViewController : TJBasicViewController
-
+- (instancetype)initWithPhoneNumber:(NSString *)phoneNumber;
 @end

@@ -83,9 +83,9 @@ static NSString *identifier = @"TJHomeCollectionViewCell";
     [self.view addSubview:toolBar];
     [toolBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(weakSelf.view);
-        make.bottom.equalTo(weakSelf.view.bottom).offset(-88);
+        make.bottom.equalTo(weakSelf.view.bottom).offset(iPhoneX?-88:-64);
 //        make.height.equalTo(toolBar.width).multipliedBy(SCALE_H(375, 100));
-        make.height.equalTo(100);
+        make.height.equalTo(80);
     }];
     
     

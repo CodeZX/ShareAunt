@@ -15,6 +15,8 @@
 #import <JKCategories/JKCategories.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <WMPageController/WMPageController.h>
+#import <MJExtension/MJExtension.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 
 
@@ -24,6 +26,12 @@
 #import "UILabel+Initialize.h"
 #import "TJBasicTableView.h"
 #import "UIButton+TJinitialize.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 #import "MBProgressHUD+Nero.h"
+#import "UsersManager.h"
+#import "TJNetworking.h"
+#import "TJNetworkReachabilityManager.h"
+#import "TJServerAddress.h"
+#import "userModel.h"
 
 #endif /* PrefixHeader_pch */

@@ -9,6 +9,9 @@
 #import "TJPersonalInformationViewController.h"
 #import "TJPersonalInformationItemModel.h"
 #import "TJPersonalInformationTableViewCell.h"
+#import "TJUserPortraitViewController.h"
+#import "TJMendPhoneNumberViewController.h"
+
 
 @interface TJPersonalInformationViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -94,7 +97,7 @@
     TJPersonalInformationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[TJPersonalInformationTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     cell.itemModel = self.items[indexPath.row];
@@ -141,6 +144,7 @@
     TJPersonalInformationItemModel *itemModel = self.items[indexPath.row];
     if ( itemModel.accessoryType != TJSettingItemAccessoryTypeNone) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
     }else {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
@@ -155,13 +159,18 @@
 #pragma mark -------------------------- lazy  load ----------------------------------------
 - (NSArray *)items {
     if (!_items) {
-        _items = @[ [[TJPersonalInformationItemModel alloc]initWithTitle:@"头像" rightTitle:@"待审核" accessoryType:TJSettingItemAccessoryTypeIndicator block:^{
+        _items = @[
+                   [[TJPersonalInformationItemModel alloc]initWithTitle:@"头像" rightTitle:@"待审核" accessoryType:TJSettingItemAccessoryTypeIndicator block:^{
             
+                                TJUserPortraitViewController *VC = [[TJUserPortraitViewController alloc]init];
+                                [self.navigationController pushViewController:VC animated:YES];
                     }],
                     [[TJPersonalInformationItemModel alloc]initWithTitle:@"姓名" rightTitle:@"张三" accessoryType:TJSettingItemAccessoryTypeNone block:^{
                         
                     }],
-                    [[TJPersonalInformationItemModel alloc]initWithTitle:@"手机号码" rightTitle:@"1234567890" accessoryType:TJSettingItemAccessoryTypeIndicator block:^{
+                    [[TJPersonalInformationItemModel alloc]initWithTitle:@"手机号码" rightTitle:[UsersManager sharedUsersManager].currentUser.aunt_phone accessoryType:TJSettingItemAccessoryTypeIndicator block:^{
+                        TJMendPhoneNumberViewController *VC = [[TJMendPhoneNumberViewController alloc]initWithPhoneNumber:[UsersManager sharedUsersManager].currentUser.aunt_phone];
+                        [self.navigationController pushViewController:VC animated:YES];
                         
                     }],
                     [[TJPersonalInformationItemModel alloc]initWithTitle:@"身份证号" rightTitle:@"32128*******9612" accessoryType:TJSettingItemAccessoryTypeIndicator block:^{

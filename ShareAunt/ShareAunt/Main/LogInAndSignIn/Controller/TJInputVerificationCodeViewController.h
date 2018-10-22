@@ -10,4 +10,5 @@
 
 @interface TJInputVerificationCodeViewController : TJBasicViewController
 
+- (instancetype)initWithPhoneNumber:(NSString *)phoneNumber;
 @end

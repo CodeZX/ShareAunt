@@ -131,4 +131,25 @@
 #define DEBUG_LOG(...)
 #endif
 
+#ifdef DEBUG
+#define TJLog(xx, ...)          NSLog((@"%s [Line %d] " xx), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define TJLog(...)
+#endif
+
+
+#ifdef DEBUG
+// 测试环境
+#define NETWORK_ENVIRONMENT    0
+#else
+// 上线环境
+#define NETWORK_ENVIRONMENT    1
+#endif
+
+#ifdef __cplusplus
+#define TJKIT_EXTERN        extern "C" __attribute__((visibility ("default")))
+#else
+#define TJKIT_EXTERN            extern __attribute__((visibility ("default")))
+#endif
+
 #endif /* Define_h */

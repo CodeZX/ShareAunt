@@ -15,12 +15,16 @@
 #import "TJCertificationMaterialsViewController.h"
 #import "TJMyOrderViewController.h"
 #import "TJMyWalletViewController.h"
+//#import "UsersManager.h"
+#import "TJLogInViewController.h"
+#import "TJUserPortraitViewController.h"
 
 
 
 @interface TJUserCenterViewController ()<UITableViewDelegate,UITableViewDataSource,TJUserCenterHeaderViewDelegate>
 @property (nonatomic,weak) TJBasicTableView *tableView;
 @property (nonatomic,strong) NSArray *items;
+@property (nonatomic,weak) TJUserCenterHeaderView *headerView;
 
 @end
 
@@ -29,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupUI];
+//    [self getUserInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -36,6 +41,29 @@
     self.navigationController.navigationBar.hidden = NO;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage jk_imageWithColor:MOTIf_BACKGROUND_COLOR] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    
+    [self.headerView upDateUI];
+   
+}
+
+- (void)getUserInfo {
+    
+    NSDictionary *parametersDic = @{@"aunt_id":[UsersManager sharedUsersManager].currentUser.aunt_id,
+                                    @"token":[UsersManager sharedUsersManager].currentUser.token
+                                    };
+    [[TJNetworking manager] post:kPersonalURL parameters:parametersDic progress:nil success:^(TJNetworkingSuccessResponse * _Nonnull response) {
+        
+        if ([response.responseObject[@"code"] intValue] == 200) {
+            
+            userModel *user = [userModel mj_objectWithKeyValues:[response.responseObject[@"result"] lastObject]];
+            
+        }
+        
+    } failed:^(TJNetworkingFailureResponse * _Nonnull response) {
+        
+    } finished:^{
+        
+    }];
 }
 
 - (void)setupUI {
@@ -57,6 +85,7 @@
     [self.view addSubview:tableView];
     self.tableView = tableView;
     TJUserCenterHeaderView *headerView = [[TJUserCenterHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH *SCALE_H(375, 278))];
+    self.headerView = headerView;
     headerView.delegate = self;
     self.tableView.tableHeaderView = headerView;
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -114,10 +143,26 @@
 
 #pragma mark -------------------------- Delegate ----------------------------------------
 #pragma mark TJUserCenterHeaderViewDelegate
+
+- (void)userCenterHeaderView:(TJUserCenterHeaderView *)userCenterHeaderView didLogInClicked:(UIButton *)notLogBtn {
+    
+    TJLogInViewController *loginVC = [[TJLogInViewController alloc]init];
+    [self.navigationController pushViewController:loginVC animated:YES];
+}
 - (void)userCenterHeaderView:(TJUserCenterHeaderView *)userCenterHeaderView didPortraitClicked:(UIImageView *)portraitImageV {
     
-    TJPersonalInformationViewController *VC = [[TJPersonalInformationViewController alloc]init];
-    [self.navigationController pushViewController:VC animated:YES];
+    if ([UsersManager sharedUsersManager].login) {
+        
+        TJPersonalInformationViewController *VC = [[TJPersonalInformationViewController alloc]init];
+        [self.navigationController pushViewController:VC animated:YES];
+    } else {
+        
+        TJLogInViewController *loginVC = [[TJLogInViewController alloc]init];
+        [self.navigationController pushViewController:loginVC animated:YES];
+       
+    }
+    
+   
     
 }
 

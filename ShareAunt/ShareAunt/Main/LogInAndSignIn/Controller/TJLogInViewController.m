@@ -156,7 +156,7 @@
     //    phoneNumberTF.layer.masksToBounds = YES;
     phoneNumberTF.clearButtonMode = UITextFieldViewModeWhileEditing;//输入框中是否有个叉号,用于一次性删除输入框中的内容
     phoneNumberTF.adjustsFontSizeToFitWidth = YES;
-    phoneNumberTF.keyboardType = UIKeyboardTypeDefault;
+    phoneNumberTF.keyboardType = UIKeyboardTypeNumberPad;
     phoneNumberTF.returnKeyType = UIReturnKeyNext;
     phoneNumberTF.leftView = [self setleftViewWithName:@"icon_user"];
     phoneNumberTF.leftViewMode = UITextFieldViewModeAlways;
@@ -169,7 +169,7 @@
         make.centerX.equalTo(weakSelf.inputView);
         make.left.equalTo(weakSelf.inputView);
         make.right.equalTo(weakSelf.inputView);
-        make.height.equalTo(56);
+        make.height.equalTo(weakSelf.phoneNumberTF.width).multipliedBy(SCALE_H(315, 56));
     }];
     
     
@@ -205,7 +205,7 @@
         make.centerX.equalTo(weakSelf.inputView);
         make.left.equalTo(weakSelf.inputView);
         make.right.equalTo(weakSelf.inputView);
-        make.height.equalTo(56);
+        make.height.equalTo(weakSelf.passwordTF.width).multipliedBy(SCALE_H(315, 56));
     }];
     
     
@@ -228,9 +228,74 @@
 
 - (void)logInBtnClicked:(UIButton *)btn {
     
-    TJUserCenterViewController *VC = [[TJUserCenterViewController alloc]init];
-    [self.navigationController pushViewController:VC animated:YES];
+//    TJUserCenterViewController *VC = [[TJUserCenterViewController alloc]init];
+//    [self.navigationController pushViewController:VC animated:YES];
     
+    NSDictionary *parametersDic =  @{@"aunt_phone":self.phoneNumberTF.text,
+                                    @"aunt_pwd":self.passwordTF.text
+                                    };
+    __weak typeof(self) weakSelf = self;
+    [MBProgressHUD showMessage:@"登录中.."];
+    [[TJNetworking manager] post:kLoginURL parameters:parametersDic progress:nil success:^(TJNetworkingSuccessResponse * _Nonnull response) {
+        
+        [MBProgressHUD hideHUD];
+        if ([response.responseObject[@"code"] intValue] == 200) {
+            
+            userModel *user = [userModel mj_objectWithKeyValues:[response.responseObject[@"result"] firstObject]];
+            user.pasword = self.passwordTF.text;
+            user.logInType = LogInTypepasword;
+            [[UsersManager sharedUsersManager] loginWithUser:user];
+            [weakSelf getUserInfo];
+           
+        }else {
+            [MBProgressHUD showSuccess:response.responseObject[@"message"]];
+        }
+        
+        
+    } failed:^(TJNetworkingFailureResponse * _Nonnull response) {
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showSuccess:@"登录失败"];
+    } finished:^{
+        
+        //        [MBProgressHUD hideHUD];
+        
+    }];
+    
+}
+
+
+- (void)getUserInfo {
+    
+    __weak typeof(self) weakSelf = self;
+    NSDictionary *parametersDic = @{@"aunt_id":[UsersManager sharedUsersManager].currentUser.aunt_id,
+                                    @"token":[UsersManager sharedUsersManager].currentUser.token
+                                    };
+    [[TJNetworking manager] post:kPersonalURL parameters:parametersDic progress:nil success:^(TJNetworkingSuccessResponse * _Nonnull response) {
+        
+        if ([response.responseObject[@"code"] intValue] == 200) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showSuccess:@"登录成功"];
+            userModel *user = [userModel mj_objectWithKeyValues:[response.responseObject[@"result"] lastObject]];
+            user.pasword = [UsersManager sharedUsersManager].currentUser.pasword;
+            user.token = [UsersManager sharedUsersManager].currentUser.token;
+            [[UsersManager sharedUsersManager] loginWithUser:user];
+            
+            
+             [weakSelf performSelector:@selector(backAction) withObject:nil afterDelay:0.5];
+        }
+        
+    } failed:^(TJNetworkingFailureResponse * _Nonnull response) {
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showSuccess:@"登录失败"];
+    } finished:^{
+        
+    }];
+}
+
+- (void)backAction {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

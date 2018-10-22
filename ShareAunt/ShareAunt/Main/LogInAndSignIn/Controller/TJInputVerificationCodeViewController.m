@@ -9,13 +9,23 @@
 #import "TJInputVerificationCodeViewController.h"
 #import "TJResetPasswordViewController.h"
 #import "TJPasswordTextFeld.h"
+#import "AppDelegate.h"
 
 @interface TJInputVerificationCodeViewController ()
 @property (nonatomic,weak) UITextField *verificationCodeTF;
 @property (nonatomic,weak) UIButton *confirmBtn;
+@property (nonatomic,strong) NSString *phoneNumber;
 @end
 
 @implementation TJInputVerificationCodeViewController
+
+- (instancetype)initWithPhoneNumber:(NSString *)phoneNumber {
+    self = [super init];
+    if (self) {
+        self.phoneNumber = phoneNumber;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,11 +50,11 @@
     
     UILabel *phoneNumberLab = [[UILabel alloc]init];
     phoneNumberLab.font = [UIFont systemFontOfSize:18];
-    phoneNumberLab.text = @"1234567890";
+    phoneNumberLab.text = self.phoneNumber?self.phoneNumber:@"无效号码";
     [self.view addSubview:phoneNumberLab];
     [phoneNumberLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf.view);
-        make.top.equalTo(titleLab.bottom).offset(30);
+        make.top.equalTo(titleLab.bottom).offset(10);
     }];
     
     
@@ -94,10 +104,40 @@
     
 }
 
+
 - (void)confirmBtnClicked:(UIButton *)btn {
     
-    TJResetPasswordViewController *VC = [[TJResetPasswordViewController alloc]init];
-    [self.navigationController pushViewController:VC animated:YES];
+    __weak typeof(self) weakSelf = self;
+    NSDictionary *parametersDic = @{   @"user_phone":self.phoneNumber,
+                                    @"smsCode":self.verificationCodeTF.text
+                                    
+                                    };
+    [MBProgressHUD showMessage:@"登录中..."];
+    [[TJNetworking manager] post:kLoginSmsURL parameters:parametersDic progress:nil success:^(TJNetworkingSuccessResponse * _Nonnull response) {
+        [MBProgressHUD hideHUD];
+        if ([response.responseObject[@"code"] intValue] == 200) {
+            [MBProgressHUD showSuccess:@"登录成功"];
+            userModel *user = [userModel mj_objectWithKeyValues:[response.responseObject[@"result"] lastObject] ];
+            user.logInType = LogInTypeSms;
+            [[UsersManager sharedUsersManager] loginWithUser:user];
+            [weakSelf performSelector:@selector(goBack) withObject:nil afterDelay:0.5];
+        }else {
+            [MBProgressHUD showSuccess:response.responseObject[@"msg"]];
+        }
+        
+    } failed:^(TJNetworkingFailureResponse * _Nonnull response) {
+    [MBProgressHUD hideHUD];[MBProgressHUD showSuccess:@"登录失败"];
+    } finished:^{
+        
+    }];
+    
+
+}
+
+- (void)goBack {
+    
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [app TJ_gotoHomePage];
 }
 
 @end

@@ -16,11 +16,14 @@
 
 
 #define kDotSize CGSizeMake (10, 10) //密码点的大小
-#define KplaceholderCount 4  //密码个数
+#define KplaceholderCount 6  //密码个数
 #define KunderlineInterval 10  //密码个数
 
 
 @implementation TJPasswordTextFeld
+{
+    NSInteger _location;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -31,11 +34,12 @@
         //输入框光标的颜色为白色
         self.tintColor = [UIColor clearColor];
         self.delegate = self;
-        self.autocapitalizationType = UITextAutocapitalizationTypeNone;
+//        self.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.keyboardType = UIKeyboardTypeNumberPad;
+        self.returnKeyType = UIReturnKeyNext;
 //        self.layer.borderColor = [[UIColor grayColor] CGColor];
 //        self.layer.borderWidth = 1;
-        [self addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+//        [self addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 //        [self setupUI];
     }
     return self;
@@ -43,12 +47,12 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    NSLog(@"变化%@", string);
+    TJLog(@"变化%@ %ld %ld", string,range.location,range.length);
     if([string isEqualToString:@"\n"]) {
         //按回车关闭键盘
         [textField resignFirstResponder];
         return NO;
-    } else if(string.length == 0) {
+    } else if([string isEqualToString:@""]) {
         //判断是不是删除键
         UILabel *placeholderLab = self.placeholderArray[range.location];
         placeholderLab.text = @"";
@@ -61,16 +65,29 @@
     } else {
         UILabel *placeholderLab = self.placeholderArray[range.location];
         placeholderLab.text = string;
+        _location = range.location;
         return YES;
     }
+    return YES;
+}
+
+- (void)deleteBackward {
+    [super deleteBackward];
+//    NSLog(@"%@",@"delete");
+     UILabel *placeholderLab = self.placeholderArray[_location];
+    placeholderLab.text = @"";
+    if (_location !=0 ) {
+       _location--;
+    }
+    
 }
 
 - (void)textFieldDidChange:(UITextField *)textField {
     
-    for (NSInteger index = 0; index < textField.text.length; index++) {
-        UILabel *placeholderLab = self.placeholderArray[index];
-        placeholderLab.hidden = NO;
-    }
+//    for (NSInteger index = 0; index < textField.text.length; index++) {
+//        UILabel *placeholderLab = self.placeholderArray[index];
+//        placeholderLab.hidden = NO;
+//    }
     
 }
 
@@ -103,7 +120,7 @@
         placeholderLab.textAlignment = NSTextAlignmentCenter;
 //        placeholderLab.text = @"》";
         placeholderLab.font = [UIFont systemFontOfSize:25];
-        placeholderLab.hidden = YES;
+//        placeholderLab.hidden = YES;
         [self addSubview:placeholderLab];
         [placeholderLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(underlineWView);
