@@ -10,8 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TJModeSettingAllView : UIView
 
+
+
+
+
+@interface TJModeSettingAllView : UIView
+- (NSDictionary *)getJobMode;
 @end
 
 NS_ASSUME_NONNULL_END

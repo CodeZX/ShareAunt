@@ -91,6 +91,7 @@
 		3CD7A702214A432B007C4500 /* TJPersonalInformationItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A701214A432B007C4500 /* TJPersonalInformationItemModel.m */; };
 		3CD7A705214A5234007C4500 /* TJMendPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A704214A5234007C4500 /* TJMendPhoneNumberViewController.m */; };
 		3CD7A708214A6DE8007C4500 /* MBProgressHUD+Nero.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7A707214A6DE8007C4500 /* MBProgressHUD+Nero.m */; };
+		3CDA0378217DD4570001726D /* TJDatePickerTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDA0377217DD4570001726D /* TJDatePickerTextField.m */; };
 		A931C9204F9A81FCA3338F57 /* libPods-ShareAunt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8966A8292CE74F6E1FA8C8A2 /* libPods-ShareAunt.a */; };
 /* End PBXBuildFile section */
 
@@ -264,6 +265,9 @@
 		3CD7A704214A5234007C4500 /* TJMendPhoneNumberViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJMendPhoneNumberViewController.m; sourceTree = "<group>"; };
 		3CD7A706214A6DE8007C4500 /* MBProgressHUD+Nero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Nero.h"; sourceTree = "<group>"; };
 		3CD7A707214A6DE8007C4500 /* MBProgressHUD+Nero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Nero.m"; sourceTree = "<group>"; };
+		3CDA0376217DD4570001726D /* TJDatePickerTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TJDatePickerTextField.h; sourceTree = "<group>"; };
+		3CDA0377217DD4570001726D /* TJDatePickerTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TJDatePickerTextField.m; sourceTree = "<group>"; };
+		3CDA03792182EA4F0001726D /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "../../../../Downloads/libstdc++.6.0.9.tbd"; sourceTree = "<group>"; };
 		76BBE3A62A1F57B91D4B14F5 /* Pods-ShareAunt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareAunt.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShareAunt/Pods-ShareAunt.release.xcconfig"; sourceTree = "<group>"; };
 		82E6F586D4C983685630BDE7 /* Pods-ShareAunt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareAunt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShareAunt/Pods-ShareAunt.debug.xcconfig"; sourceTree = "<group>"; };
 		8966A8292CE74F6E1FA8C8A2 /* libPods-ShareAunt.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShareAunt.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -296,6 +300,8 @@
 				3C5109E42154C08D008B09F3 /* TJLabel.m */,
 				3C014E70216EFB8800516993 /* TJTextView.h */,
 				3C014E71216EFB8800516993 /* TJTextView.m */,
+				3CDA0376217DD4570001726D /* TJDatePickerTextField.h */,
+				3CDA0377217DD4570001726D /* TJDatePickerTextField.m */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -693,6 +699,7 @@
 		753077B4425C25EC6B471BAD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3CDA03792182EA4F0001726D /* libstdc++.6.0.9.tbd */,
 				8966A8292CE74F6E1FA8C8A2 /* libPods-ShareAunt.a */,
 			);
 			name = Frameworks;
@@ -740,6 +747,11 @@
 				TargetAttributes = {
 					3CD7A67221464951007C4500 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -783,11 +795,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ShareAunt/Pods-ShareAunt-resources.sh",
+				"${PODS_ROOT}/AMap2DMap/MAMapKit.framework/AMap.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 			);
@@ -831,6 +845,7 @@
 				3C510A3F215B8A84008B09F3 /* TJMyWalletViewController.m in Sources */,
 				3CAD83E921509B34004023E1 /* TJCertificationMaterialsFooterView.m in Sources */,
 				3CD7A69421464AF8007C4500 /* TJBasicViewController.m in Sources */,
+				3CDA0378217DD4570001726D /* TJDatePickerTextField.m in Sources */,
 				3C5109E82154E55B008B09F3 /* TJModeSettingRealTimeView.m in Sources */,
 				3CD7A6B8214772B1007C4500 /* TJForgetPasswordViewController.m in Sources */,
 				3CD7A6EA2148F5C9007C4500 /* UIButton+TJinitialize.m in Sources */,

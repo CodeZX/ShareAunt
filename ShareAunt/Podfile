@@ -14,4 +14,7 @@ pod 'TYAttributedLabel'
 pod 'JKCategories'
 pod 'WMPageController'
 pod 'DZNEmptyDataSet'
+pod 'AMap2DMap'
+pod 'AMapLocation'
+pod 'AMapSearch'
 end

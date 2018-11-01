@@ -7,6 +7,8 @@
 //
 
 #import "TJModeSettingRealTimeView.h"
+#import "TJModeSettingAllView.h"
+
 
 
 @interface TJModeSettingRealTimeView ()
@@ -14,6 +16,8 @@
 @property (nonatomic,weak) UIButton *areaSelectBtn;
 @property (nonatomic,weak) UIButton *addressSelectBtn;
 
+@property (nonatomic,strong) NSString *AreaStr;
+@property (nonatomic,strong) NSString *DestinationStr;
 @end
 @implementation TJModeSettingRealTimeView
 
@@ -57,6 +61,8 @@
     }];
     [self.addressSelectBtn jk_setImagePosition:LXMImagePositionRight spacing:200];
     
+    
+    
 }
 
 - (void)areaSelectBtnClciked:(UIButton *)btn {
@@ -65,4 +71,18 @@
     }
 }
 
+
+- (NSDictionary *)getArea {
+    
+    if ( self.AreaStr && self.AreaStr.length > 0 && self.DestinationStr && self.DestinationStr.length > 0) {
+        
+        return @{
+                  jobModeKeyArea  :self.AreaStr,
+                  jobModeKeyDestination:self.DestinationStr
+                };
+    }else {
+        return nil;
+    }
+    
+}
 @end

@@ -63,6 +63,7 @@
      self.view.backgroundColor = MOTIf_BACKGROUND_COLOR;
      __weak typeof(self) weakSelf = self;
      
+//     self.view.backgroundColor = [UIColor redColor];
      
      UILabel *titleLab = [UILabel labelWithText:@"订单类型" textColor:[UIColor jk_colorWithHex:0xDADADD] fontName:@"PingFangSC-Light" fontSize:14 wordSpace:5];
      [self.view addSubview:titleLab];
@@ -111,6 +112,7 @@
      [self setupScrollView];
      
      UIButton *saveBtn = [UIButton TJ_buttonWithTitle:@"保存设置" titleColor:[UIColor whiteColor] titleFont:[UIFont fontWithName:@"PingFangSC-Regular" size:16] backgroundColor:MOTIF_BUTTON_COLOR];
+     [saveBtn addTarget:self action:@selector(saveBtnClick:) forControlEvents:UIControlEventTouchUpInside];
      saveBtn.layer.cornerRadius = 5;
      saveBtn.layer.masksToBounds = YES;
      [self.view addSubview:saveBtn];
@@ -123,8 +125,62 @@
 
      }];
      
+     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
+     [self.view addGestureRecognizer:tap];
  }
 
+
+- (void)tap {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"resignFirstResponder" object:self];
+   
+}
+- (void)saveBtnClick:(UIButton *)btn {
+    
+    TJLog(@"保存");
+    switch (self.segment.selectedSegmentIndex) {
+        case 0:
+            [self saveArea];
+            break;
+        case 1:
+            [self saveBespeakTime];
+            break;
+        case 2:
+            [self saveAreaAndBespeak];
+            break;
+        default:
+            break;
+    }
+    
+}
+- (void)saveArea {
+    
+    if ([self.realTimeView getArea]) {
+        [[UsersManager sharedUsersManager] setJobArea:[self.realTimeView getArea]];
+        
+    }else {
+        [MBProgressHUD showSuccess:@"请选择区域和目的地"];
+    }
+    
+}
+
+- (void)saveBespeakTime {
+    
+    if ([self.bespeakView getBespeakTitme]) {
+        [[UsersManager sharedUsersManager] setJobBespeakTime:[self.bespeakView getBespeakTitme]];
+    }else {
+        [MBProgressHUD showSuccess:@"请选择时间"];
+    }
+}
+
+- (void)saveAreaAndBespeak {
+    
+    if ([self.allView getJobMode]) {
+        [[UsersManager sharedUsersManager] setJobAreaAndBespeakTime:[self.allView getJobMode]];
+    }else {
+        [MBProgressHUD showSuccess:@"请选择区域和时间"];
+    }
+}
 - (void)setupScrollView {
     
     __weak typeof(self) weakSelf = self;
@@ -182,6 +238,8 @@
     
     
 }
+
+
 #pragma mark -------------------------- Delegate ----------------------------------------
 #pragma mark TJModeSettingRealTimeViewDelegate
 - (void)modeSettingRealTimeView:(TJModeSettingRealTimeView *)modeSettingRealTimeView didAreaSelect:(UIButton *)AreaSelectBtn {

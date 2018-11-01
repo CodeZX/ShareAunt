@@ -12,7 +12,8 @@
 @protocol  TJHomeToolBarDelegate <NSObject>
 @optional
 - (void)homeToolBar:(TJHomeToolBar *)homeToolBar didTapMode:(UIButton *)modeBtn;
-- (void)homeToolBar:(TJHomeToolBar *)homeToolBar didTapReceivingrders:(UIButton *)receivingrdersBtn;
+- (void)homeToolBar:(TJHomeToolBar *)homeToolBar didTapUnacceptTask:(UIButton *)UnacceptTaskBtn;
+- (void)homeToolBar:(TJHomeToolBar *)homeToolBar didTapAcceptTask:(UIButton *)acceptTaskBtn;
 @required
 @end
 

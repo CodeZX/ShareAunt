@@ -16,6 +16,8 @@
 @property (nonatomic,weak) UIButton *modeBtn;
 @property (nonatomic,weak) UIButton *receivingrdersBtn;
 @property (nonatomic,weak) UILabel *statusLab;
+@property (nonatomic,weak) UIButton *acceptTaskBtn;   // 接收订单
+@property (nonatomic,weak) UIButton *unAcceptTaskBtn;  // 收单
 @end
 
 @implementation TJHomeToolBar
@@ -51,20 +53,20 @@
     [modeBtn jk_setImagePosition:LXMImagePositionTop spacing:5];
     
     
-    UIButton *receivingrdersBtn = [UIButton buttonWithTitle:@"收单" imageName:@"close"];
-    receivingrdersBtn.layer.cornerRadius = 5;
-    receivingrdersBtn.layer.masksToBounds = YES;
-    [receivingrdersBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    receivingrdersBtn.backgroundColor = MOTIF_BUTTON_COLOR;
-    [receivingrdersBtn addTarget:self action:@selector(receivingrdersBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:receivingrdersBtn];
-    self.receivingrdersBtn = receivingrdersBtn;
-    [self.receivingrdersBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIButton *unAcceptTaskBtn = [UIButton buttonWithTitle:@"收单" imageName:@"close"];
+    unAcceptTaskBtn.layer.cornerRadius = 5;
+    unAcceptTaskBtn.layer.masksToBounds = YES;
+    [unAcceptTaskBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    unAcceptTaskBtn.backgroundColor = MOTIF_BUTTON_COLOR;
+    [unAcceptTaskBtn addTarget:self action:@selector(unAcceptTaskBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:unAcceptTaskBtn];
+    self.unAcceptTaskBtn = unAcceptTaskBtn;
+    [self.unAcceptTaskBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(-15);
         make.centerY.equalTo(weakSelf);
         make.size.equalTo(CGSizeMake(60, 60));
     }];
-    [receivingrdersBtn jk_setImagePosition:LXMImagePositionTop spacing:5];
+    [unAcceptTaskBtn jk_setImagePosition:LXMImagePositionTop spacing:5];
     
     
     
@@ -75,6 +77,26 @@
         make.center.equalTo(weakSelf);
     }];
     
+    
+    UIButton *acceptTaskBtn = [UIButton buttonWithTitle:@"点击接单" imageName:@""];
+    acceptTaskBtn.hidden = YES;
+    acceptTaskBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+    acceptTaskBtn.layer.cornerRadius = 5;
+    acceptTaskBtn.layer.masksToBounds = YES;
+    [acceptTaskBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    acceptTaskBtn.backgroundColor = MOTIF_BUTTON_COLOR;
+    [acceptTaskBtn addTarget:self action:@selector(acceptTaskBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:acceptTaskBtn];
+    self.acceptTaskBtn = acceptTaskBtn;
+    [self.acceptTaskBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(-20);
+        make.left.equalTo(weakSelf.modeBtn.right).offset(30);
+        make.top.equalTo(20);
+        make.bottom.equalTo(-20);
+        
+    }];
+//    [receivingrdersBtn jk_setImagePosition:LXMImagePositionTop spacing:5];
+    
 }
 
 - (void)modeBtnClicked:(UIButton *)btn {
@@ -84,9 +106,24 @@
     
 }
 
-- (void)receivingrdersBtnClicked:(UIButton *)btn {
-    if ([self.delegate respondsToSelector:@selector(homeToolBar:didTapReceivingrders:)]) {
-        [self.delegate homeToolBar:self didTapReceivingrders:btn];
+- (void)unAcceptTaskBtnClicked:(UIButton *)btn {
+    
+    self.unAcceptTaskBtn.hidden = YES;
+    self.acceptTaskBtn.hidden = NO;
+    self.statusLab.hidden = YES;
+    if ([self.delegate respondsToSelector:@selector(homeToolBar:didTapUnacceptTask:)]) {
+        [self.delegate homeToolBar:self didTapUnacceptTask:btn];
+    }
+    
+}
+
+- (void)acceptTaskBtnClicked:(UIButton *)btn {
+    
+    self.unAcceptTaskBtn.hidden = NO;
+    self.statusLab.hidden = NO;
+    self.acceptTaskBtn.hidden = YES;
+    if ([self.delegate respondsToSelector:@selector(homeToolBar:didTapAcceptTask:)]) {
+        [self.delegate homeToolBar:self didTapAcceptTask:btn];
     }
     
 }

@@ -14,6 +14,12 @@ typedef NS_ENUM(NSUInteger, LogInType) {
     LogInTypeSms,
     
 };
+
+extern NSString * const jobModeKeyArea;
+extern NSString * const jobModeKeyDestination;
+extern NSString * const jobModeKeyStart;
+extern NSString * const jobModeKeyEnd;
+
 @interface userModel : NSObject
 
 @property (nonatomic,strong) NSString *aunt_id;
@@ -31,6 +37,8 @@ typedef NS_ENUM(NSUInteger, LogInType) {
 @property (nonatomic,strong) NSString *validate;
 @property (nonatomic,strong) NSString *pasword;
 @property (nonatomic,assign) LogInType logInType;
+
+@property (nonatomic,strong) NSDictionary *jobMode;  // 工作模式 （字典的key  jobModeKeyArea jobModeKeyDestinationv jobModeKeyStart jobModeKeyEnd)
 
 @end
 

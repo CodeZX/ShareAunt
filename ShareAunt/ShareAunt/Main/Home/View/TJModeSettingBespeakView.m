@@ -7,13 +7,27 @@
 // 预约
 
 #import "TJModeSettingBespeakView.h"
+#import "TJDatePickerTextField.h"
+#import "TJModeSettingAllView.h"
+
 
 
 @interface TJModeSettingBespeakView ()
 
 @property (nonatomic,weak) UILabel *titleLab;
-@property (nonatomic,weak) UITextField *startTimeTF;
-@property (nonatomic,weak) UITextField *endTimeTF;
+@property (nonatomic,weak) TJDatePickerTextField *startTimeTF;
+@property (nonatomic,weak) TJDatePickerTextField *endTimeTF;
+@property (nonatomic,weak) UIDatePicker *datePicker;
+@property (nonatomic,weak) UIToolbar *toolbar;
+
+@property (nonatomic,strong) NSString *startTimeStr;
+@property (nonatomic,strong) NSString *endTimeStr;
+
+
+@property (nonatomic,strong) NSString *startTimeDate;
+@property (nonatomic,strong) NSString *endTimeDate;
+
+
 @end
 @implementation TJModeSettingBespeakView
 
@@ -30,7 +44,6 @@
 //    self.backgroundColor = [UIColor yellowColor];
     __weak typeof(self) weakSelf = self;
     UILabel *titleLab = [UILabel labelWithText:@"设置预约时间" textColor:[UIColor jk_colorWithHex:0x909090] fontName:@"PingFangSC-Regular" fontSize:15 wordSpace:4];
-    
     titleLab.textAlignment = NSTextAlignmentCenter;
     [self addSubview:titleLab];
     self.titleLab = titleLab;
@@ -39,7 +52,9 @@
         make.centerX.equalTo(weakSelf);
     }];
     
-    UITextField *startTimeTF = [[UITextField alloc]init];
+    TJDatePickerTextField *startTimeTF = [[TJDatePickerTextField alloc]init];
+    startTimeTF.adjustsFontSizeToFitWidth = YES;
+    startTimeTF.minimumFontSize = 10;
     startTimeTF.textAlignment = NSTextAlignmentCenter;
     startTimeTF.backgroundColor = [UIColor jk_colorWithHex:0x25252F];
     startTimeTF.textColor = [UIColor jk_colorWithHex:0x909090];
@@ -58,12 +73,14 @@
     UILabel *lab = [UILabel labelWithText:@"至" textColor:[UIColor whiteColor] fontName:@"PingFangSC-Regular" fontSize:15 wordSpace:5];
     [self addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
-         make.top.equalTo(titleLab.bottom).offset(96);
+         make.centerY.equalTo(weakSelf.startTimeTF);
         make.centerX.equalTo(weakSelf);
     }];
     
     
-    UITextField *endTimeTF = [[UITextField alloc]init];
+    TJDatePickerTextField *endTimeTF = [[TJDatePickerTextField alloc]init];
+    endTimeTF.adjustsFontSizeToFitWidth = YES;
+    endTimeTF.minimumFontSize = 10;
     endTimeTF.textAlignment = NSTextAlignmentCenter;
     endTimeTF.backgroundColor = [UIColor jk_colorWithHex:0x25252F];
     endTimeTF.textColor = [UIColor jk_colorWithHex:0x909090];
@@ -78,6 +95,27 @@
         make.height.equalTo(weakSelf.startTimeTF.width).multipliedBy(SCALE_H(100, 35));
         
     }];
+    
+
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resignResponder) name:@"resignFirstResponder" object:nil];
+    
+}
+
+- (void)resignResponder {
+    
+    [self.startTimeTF resignFirstResponder];
+    [self.endTimeTF resignFirstResponder];
+}
+
+- (NSDictionary *)getBespeakTitme {
+   
+    if (self.startTimeTF.date > 0 && self.endTimeTF.date) {
+        return @{ jobModeKeyStart:self.startTimeTF.date,
+                 jobModeKeyEnd:self.endTimeTF.date
+                 };
+    }else {
+        return nil;
+    }
     
 }
 @end

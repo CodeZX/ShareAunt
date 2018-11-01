@@ -103,6 +103,52 @@
     
 }
 
+- (void)setJobArea:(NSDictionary *)area {
+    
+    if (!area) { return; }
+    if (!self.currentUser.jobMode) {
+        self.currentUser.jobMode = [NSDictionary dictionaryWithDictionary:area];
+    } else {
+        [self.currentUser.jobMode setValue:area[jobModeKeyArea] forKey:jobModeKeyArea];
+        [self.currentUser.jobMode setValue:area[jobModeKeyDestination] forKey:jobModeKeyDestination];
+        
+    }
+    
+    [self save];
+    
+}
+
+- (void)setJobBespeakTime:(NSDictionary *)bespeakTime {
+    
+    if (!bespeakTime) { return; }
+    if (!self.currentUser.jobMode) {
+        self.currentUser.jobMode = [NSDictionary dictionaryWithDictionary:bespeakTime];
+    } else {
+        [self.currentUser.jobMode setValue:bespeakTime[jobModeKeyStart] forKey:jobModeKeyStart];
+        [self.currentUser.jobMode setValue:bespeakTime[jobModeKeyEnd] forKey:jobModeKeyEnd];
+    }
+    [self save];
+}
+
+- (void)setJobAreaAndBespeakTime:(NSDictionary *)jobMode  {
+    
+    if (!jobMode) { return; }
+    if (!self.currentUser.jobMode) {
+        self.currentUser.jobMode = [NSDictionary dictionaryWithDictionary:jobMode];
+    } else {
+        [self.currentUser.jobMode setValue:jobMode[jobModeKeyArea] forKey:jobModeKeyArea];
+        [self.currentUser.jobMode setValue:jobMode[jobModeKeyDestination] forKey:jobModeKeyDestination];
+        [self.currentUser.jobMode setValue:jobMode[jobModeKeyStart] forKey:jobModeKeyStart];
+        [self.currentUser.jobMode setValue:jobMode[jobModeKeyEnd] forKey:jobModeKeyEnd];
+    }
+    [self save];
+    
+}
+
+- (NSDictionary *)getJobMode {
+    return self.currentUser.jobMode;
+}
+
 
 
 

@@ -7,6 +7,7 @@
 //
 
 #import "TJHomeCollectionViewCell.h"
+#import "TJOrderModel.h"
 @interface TJHomeCollectionViewCell ()
 
 @property (nonatomic,weak) UIView *containerView;
@@ -37,15 +38,22 @@
     return self;
 }
 
+
+
 - (void)setupUI {
     
     UIView *containerView = [[UIView alloc]init];
-    containerView.layer.borderColor = [UIColor jk_colorWithHex:0x201B17].CGColor;
-    containerView.layer.borderWidth = 1;
+    containerView.backgroundColor = [UIColor whiteColor];
+//    containerView.layer.borderColor = [UIColor jk_colorWithHex:0x201B17].CGColor;
+//    containerView.layer.borderWidth = 1;
+    containerView.layer.shadowColor = [UIColor jk_colorWithHex:0x272727].CGColor;
+    containerView.layer.shadowOffset = CGSizeMake(1, 1);
+    containerView.layer.shadowOpacity = 0.6;
+//    containerView.layer.masksToBounds = NO;
     [self.contentView addSubview:containerView];
     self.containerView = containerView;
     [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(UIEdgeInsetsMake(5, 5, 50, 5));
+        make.edges.equalTo(UIEdgeInsetsMake(5, 5, 5, 5));
     }];
     
     __weak typeof(self) weakSelf = self;
@@ -53,7 +61,7 @@
     [self.containerView addSubview:orderNumberLab];
     self.orderNumberLab = orderNumberLab;
     [self.orderNumberLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(12);
+        make.top.equalTo(10);
         make.left.equalTo(10);
     }];
     UILabel *orderNumberValueLab = [UILabel labelWithText:@"00001" textColor:[UIColor jk_colorWithHex:0x272727] fontName:@"PingFang-SC-Regular" fontSize:14 wordSpace:0];
@@ -69,7 +77,7 @@
     [self.containerView addSubview:addressLab];
     self.addressLab = addressLab;
     [self.addressLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.orderNumberLab.bottom);
+        make.top.equalTo(weakSelf.orderNumberLab.bottom).offset(10);
         make.left.equalTo(weakSelf.orderNumberLab);
     }];
     UILabel *addressValueLab = [UILabel labelWithText:@"临空经济园区" textColor:[UIColor jk_colorWithHex:0x272727] fontName:@"PingFang-SC-Regular" fontSize:14 wordSpace:0];
@@ -85,7 +93,7 @@
     [self.containerView addSubview:jobDescriptionLab];
     self.jobDescriptionLab = jobDescriptionLab;
     [self.jobDescriptionLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.addressValueLab.bottom);
+        make.top.equalTo(weakSelf.addressValueLab.bottom).offset(10);
         make.left.equalTo(weakSelf.orderNumberLab);
     }];
     UILabel *jobDescriptionValueLab = [UILabel labelWithText:@"日常保洁" textColor:[UIColor jk_colorWithHex:0x272727] fontName:@"PingFang-SC-Regular" fontSize:14 wordSpace:0];
@@ -100,7 +108,7 @@
     [self.containerView addSubview:durationLab];
     self.durationLab = durationLab;
     [self.durationLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.jobDescriptionLab.bottom);
+        make.top.equalTo(weakSelf.jobDescriptionLab.bottom).offset(10);
         make.left.equalTo(weakSelf.orderNumberLab);
     }];
     UILabel *durationValueLab = [UILabel labelWithText:@"2小时" textColor:[UIColor jk_colorWithHex:0x272727] fontName:@"PingFang-SC-Regular" fontSize:14 wordSpace:0];
@@ -111,5 +119,11 @@
         make.left.equalTo(weakSelf.jobDescriptionLab.right).offset(5);
     }];
     
+}
+
+- (void)setOrderModel:(TJOrderModel *)orderModel {
+    
+    _orderModel = orderModel;
+    self.orderNumberValueLab.text = orderModel.order_id;
 }
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "TJModeSettingAllView.h"
+#import "TJDatePickerTextField.h"
 
 
 @interface TJModeSettingAllView  ()
@@ -15,8 +16,15 @@
 @property (nonatomic,weak) UIButton *addressSelectBtn;
 
 @property (nonatomic,weak) UILabel *titleLab;
-@property (nonatomic,weak) UITextField *startTimeTF;
-@property (nonatomic,weak) UITextField *endTimeTF;
+@property (nonatomic,weak) TJDatePickerTextField *startTimeTF;
+@property (nonatomic,weak) TJDatePickerTextField *endTimeTF;
+
+
+@property (nonatomic,strong) NSString *areaStr;
+@property (nonatomic,strong) NSString *destinationStr;
+@property (nonatomic,strong) NSString *startTimeStr;
+@property (nonatomic,strong) NSString *endTimeStr;
+
 @end
 @implementation TJModeSettingAllView
 
@@ -69,7 +77,9 @@
         make.centerX.equalTo(weakSelf);
     }];
     
-    UITextField *startTimeTF = [[UITextField alloc]init];
+    TJDatePickerTextField *startTimeTF = [[TJDatePickerTextField alloc]init];
+    startTimeTF.adjustsFontSizeToFitWidth = YES;
+    startTimeTF.minimumFontSize = 10;
     startTimeTF.textAlignment = NSTextAlignmentCenter;
     startTimeTF.backgroundColor = [UIColor jk_colorWithHex:0x25252F];
     startTimeTF.textColor = [UIColor jk_colorWithHex:0x909090];
@@ -88,12 +98,14 @@
     UILabel *lab = [UILabel labelWithText:@"至" textColor:[UIColor whiteColor] fontName:@"PingFangSC-Regular" fontSize:15 wordSpace:5];
     [self addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(titleLab.bottom).offset(33);
+        make.centerY.equalTo(weakSelf.startTimeTF);
         make.centerX.equalTo(weakSelf);
     }];
     
     
-    UITextField *endTimeTF = [[UITextField alloc]init];
+    TJDatePickerTextField *endTimeTF = [[TJDatePickerTextField alloc]init];
+    endTimeTF.adjustsFontSizeToFitWidth = YES;
+    endTimeTF.minimumFontSize = 10;
     endTimeTF.textAlignment = NSTextAlignmentCenter;
     endTimeTF.backgroundColor = [UIColor jk_colorWithHex:0x25252F];
     endTimeTF.textColor = [UIColor jk_colorWithHex:0x909090];
@@ -111,4 +123,19 @@
     
 }
 
+
+- (NSDictionary *)getJobMode {
+    
+    if (self.areaStr.length > 0 && self.destinationStr.length > 0  && self.startTimeTF.date && self.endTimeTF.date ) {
+        return @{
+                 jobModeKeyArea:self.areaStr,
+                 jobModeKeyDestination:self.destinationStr,
+                 jobModeKeyStart:self.startTimeStr,
+                 jobModeKeyEnd:self.endTimeStr
+                 };
+    }else {
+        return nil;
+    }
+    
+}
 @end

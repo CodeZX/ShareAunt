@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+
 @class TJModeSettingRealTimeView;
 @protocol  TJModeSettingRealTimeViewDelegate <NSObject>
 @optional
@@ -18,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 @interface TJModeSettingRealTimeView : UIView
 @property (nonatomic,weak) id<TJModeSettingRealTimeViewDelegate> delegate;
+
+- (NSDictionary *)getArea;
 @end
 
 NS_ASSUME_NONNULL_END

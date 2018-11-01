@@ -12,6 +12,7 @@
 #import "TJLogInViewController.h"
 #import "TJSigninViewController.h"
 #import "TJMainViewController.h"
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 @interface AppDelegate ()
 
@@ -23,6 +24,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
    
      [[TJNetworkReachabilityManager manager] startMonitoring];
+    [AMapServices sharedServices].apiKey = @"59ddb6c596d641253d84e9bb4927afcb";
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
 //    self.window.rootViewController = [[TJNavigationController alloc]initWithRootViewController:[[TJLogInViewController alloc]init]];
 //    self.window.rootViewController = [[TJNavigationController alloc]initWithRootViewController:[[TJSigninViewController alloc]init]];

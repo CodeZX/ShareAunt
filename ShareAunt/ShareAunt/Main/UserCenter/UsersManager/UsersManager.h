@@ -26,5 +26,11 @@
 - (void)signUp;
 - (BOOL)save;
 
+
+- (void)setJobArea:(NSDictionary *)area;
+- (void)setJobBespeakTime:(NSDictionary *)bespeakTime;
+- (void)setJobAreaAndBespeakTime:(NSDictionary *)jobMode;
+- (NSDictionary *)getJobMode;
+
 - (NSString *)provingCode;
 @end

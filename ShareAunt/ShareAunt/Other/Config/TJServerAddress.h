@@ -21,6 +21,10 @@ TJKIT_EXTERN NSString * kRegisterURL;
 TJKIT_EXTERN NSString * kCAPTCHAURL;
 
 #pragma mark - 首页
+/**接单  */
+TJKIT_EXTERN NSString * kAcceptTaskURL;
+
+
 /**首页banner  */
 TJKIT_EXTERN NSString * kHomeBannerURL;
 /**首页分类按钮  */

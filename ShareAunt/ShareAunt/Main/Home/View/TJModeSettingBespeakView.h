@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TJModeSettingBespeakView : UIView
 
+
+@interface TJModeSettingBespeakView : UIView
+- (NSDictionary *)getBespeakTitme;
 @end
 
 NS_ASSUME_NONNULL_END

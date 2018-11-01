@@ -8,6 +8,12 @@
 
 #import "userModel.h"
 
+
+NSString * const jobModeKeyArea = @"jobModeKeyArea";
+NSString * const jobModeKeyDestination = @"jobModeKeyDestination";
+NSString * const jobModeKeyStart = @"jobModeKeyStart";
+NSString * const jobModeKeyEnd = @"jobModeKeyEnd";
+
 @implementation userModel
 
 
@@ -25,6 +31,7 @@
         self.aunt_occupation = [aDecoder decodeObjectForKey:@"aunt_occupation"];
         self.pasword = [aDecoder decodeObjectForKey:@"pasword"];
         self.logInType = [aDecoder decodeIntegerForKey:@"logInType"];
+        self.jobMode = [aDecoder decodeObjectForKey:@"jobMode"];
     }
     return self;
 }
@@ -41,6 +48,7 @@
     [aCoder encodeObject:self.aunt_occupation forKey:@"aunt_occupation"];
     [aCoder encodeObject:self.pasword forKey:@"pasword"];
     [aCoder encodeInteger:self.logInType forKey:@"logInType"];
+    [aCoder encodeObject:self.jobMode forKey:@"jobMode"];
     
 }
 @end

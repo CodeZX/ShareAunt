@@ -14,8 +14,10 @@
 #if NETWORK_ENVIRONMENT == 0
 NSString * kHostURL = @"http://192.168.71.55:7090";
 #else
-NSString * kHostURL = @"http://45.63.35.70:8080";
+NSString * kHostURL = @"http://192.168.71.55:7090";
 #endif
+
+
 
 #pragma mark - 登录
 /** 密码登录接口 */
@@ -30,6 +32,10 @@ NSString * kCAPTCHAURL = @"/tunjin-cleaner/messageApi/sendMessage";
 
 
 #pragma mark - 首页
+/**接单  */
+NSString * kAcceptTaskURL = @"/tunjin-cleaner/aunt/listen_orders";
+
+
 /**首页banner  */
 NSString * kHomeBannerURL = @"/i_fashion/start_page/get_banner";
 /**首页分类按钮  */

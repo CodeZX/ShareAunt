@@ -12,6 +12,7 @@
 #import "TJOrderModel.h"
 #import "TJHomeHeaderView.h"
 #import "TJModeSettingViewController.h"
+#import "TJOrderDetailedViewController.h"
 
 
 static NSString *identifier = @"TJHomeCollectionViewCell";
@@ -27,12 +28,64 @@ static NSString *identifier = @"TJHomeCollectionViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupUI];
+    [self networkLoad];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
 //    self.navigationController.navigationBar.hidden = YES;
+}
+
+- (void)networkLoad {
+    
+    
+    NSDictionary *parametersDic;
+    if ([UsersManager sharedUsersManager].currentUser.jobMode) {
+        NSDictionary *jobMode = [UsersManager sharedUsersManager].currentUser.jobMode;
+        if (jobMode[jobModeKeyStart] && jobMode[jobModeKeyEnd] && jobMode[jobModeKeyArea] && jobMode[jobModeKeyDestination]) {
+            parametersDic = @{
+//                              @"order_type":@(1),
+                              @"time1":jobMode[jobModeKeyStart],
+                              @"time2":jobMode[jobMode],
+                              @"region_id":@(2)
+                              };
+        } else if (jobMode[jobModeKeyArea] && jobMode[jobModeKeyDestination]) {
+            
+            parametersDic = @{
+                              @"order_type":@(0),
+//                              @"time1":jobMode[jobModeKeyStart],
+//                              @"time2":jobMode[jobMode],
+                              @"region_id":jobMode[jobModeKeyArea]
+                              };
+            
+        } else if (jobMode[jobModeKeyStart]  && jobMode[jobModeKeyEnd]) {
+            parametersDic = @{
+                              @"order_type":@(1),
+                              @"time1":jobMode[jobModeKeyStart],
+                              @"time2":jobMode[jobModeKeyEnd],
+                              //                              @"region_id":@(2)
+                              };
+        }
+        
+    } else {
+       parametersDic  = nil;
+    }
+   
+    [[TJNetworking manager] post:kAcceptTaskURL parameters:parametersDic progress:nil success:^(TJNetworkingSuccessResponse * _Nonnull response) {
+        if ([response.responseObject[@"code"] intValue] == 200) {
+            self.dataSource = [TJOrderModel mj_objectArrayWithKeyValuesArray:response.responseObject[@"result"]];
+            [self.collectionView reloadData];
+        }
+    } failed:^(TJNetworkingFailureResponse * _Nonnull response) {
+        TJLog(@"error 失败%@", response.message);
+        
+    } finished:^{
+        TJLog(@"完成");
+    }];
+    
+    
 }
 
 - (void)setupUI {
@@ -55,27 +108,29 @@ static NSString *identifier = @"TJHomeCollectionViewCell";
        
     }];
     
-////    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-////    layout.itemSize = CGSizeMake(SCREEN_WIDTH , SCREEN_WIDTH *SCALE_H(357, 253));
-////     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-////    //    layout.minimumLineSpacing = 0;
-////    CGFloat X,Y,W,H;
-////    X = 0;
-////    Y = SCREEN_WIDTH * SCALE_H(375, 250);
-////    W = SCREEN_WIDTH;
-////    H = SCREEN_WIDTH *SCALE_H(357, 253);
-////    UICollectionView *collecttionView = [[UICollectionView alloc]initWithFrame:CGRectMake(X, Y, W, H) collectionViewLayout:layout];
-////    collecttionView.backgroundColor = [UIColor whiteColor];
-////    collecttionView.delegate = self;
-////    collecttionView.dataSource = self;
-//////    collecttionView.contentInset = UIEdgeInsetsMake(20, 15, 0, 15);
-////    [self.view addSubview:collecttionView];
-////    self.collectionView = collecttionView;
-////        self.collectionView.mj_header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-////        [self.collectionView.mj_header beginRefreshing];
-//    [self.collectionView registerClass:[TJHomeCollectionViewCell class] forCellWithReuseIdentifier:identifier];
-////    [self.collectionView registerClass:[TJHomeHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TJHomeHeaderView"];
-////    [self.collectionView registerClass:[TJHomeToolBar class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"TJHomeToolBar"];
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+    layout.itemSize = CGSizeMake(SCREEN_WIDTH , SCREEN_WIDTH *SCALE_H(375, 135));
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumLineSpacing = 0;
+    CGFloat X,Y,W,H;
+    X = 0;
+    Y = SCREEN_WIDTH * SCALE_H(375, 250);
+    W = SCREEN_WIDTH;
+    H = SCREEN_WIDTH *SCALE_H(375, 135);
+    UICollectionView *collecttionView = [[UICollectionView alloc]initWithFrame:CGRectMake(X, Y, W, H) collectionViewLayout:layout];
+    collecttionView.showsHorizontalScrollIndicator = NO;
+    collecttionView.pagingEnabled = YES;
+    collecttionView.backgroundColor = [UIColor whiteColor];
+    collecttionView.delegate = self;
+    collecttionView.dataSource = self;
+////    collecttionView.contentInset = UIEdgeInsetsMake(20, 15, 0, 15);
+    [self.view addSubview:collecttionView];
+    self.collectionView = collecttionView;
+//        self.collectionView.mj_header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+//        [self.collectionView.mj_header beginRefreshing];
+    [self.collectionView registerClass:[TJHomeCollectionViewCell class] forCellWithReuseIdentifier:identifier];
+    [self.collectionView registerClass:[TJHomeHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TJHomeHeaderView"];
+    [self.collectionView registerClass:[TJHomeToolBar class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"TJHomeToolBar"];
     
     
     TJHomeToolBar *toolBar = [[TJHomeToolBar alloc]init];
@@ -108,6 +163,7 @@ static NSString *identifier = @"TJHomeCollectionViewCell";
     //    cell.sortModel = self.dataSource[indexPath.row];
     cell.orderModel = self.dataSource[indexPath.row];
     cell.backgroundColor = [UIColor yellowColor];
+    cell.orderModel = self.dataSource[indexPath.row];
     return  cell;
 }
 
@@ -119,6 +175,10 @@ static NSString *identifier = @"TJHomeCollectionViewCell";
     //        [self.delegate musicHeaderView:self didSelectedAlias:itemModel.type_alias];
     //
     //    }
+    
+    TJOrderDetailedViewController *VC = [[TJOrderDetailedViewController alloc]init];
+    [self.navigationController pushViewController:VC animated:YES];
+    
 }
 
 //- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -145,16 +205,26 @@ static NSString *identifier = @"TJHomeCollectionViewCell";
 #pragma mark TJHomeToolBarDelegate
 - (void)homeToolBar:(TJHomeToolBar *)homeToolBar didTapMode:(UIButton *)modeBtn {
     
-    TJModeSettingViewController *VC = [[TJModeSettingViewController alloc]init];
-    [self.navigationController pushViewController:VC animated:YES];
+    if ([[UsersManager sharedUsersManager] isLogin]) {
+        TJModeSettingViewController *VC = [[TJModeSettingViewController alloc]init];
+        [self.navigationController pushViewController:VC animated:YES];
+    } else {
+        
+        [MBProgressHUD showSuccess:@"未登录，请登录后设置"];
+    }
+    
 }
 
 
-- (void)homeToolBar:(TJHomeToolBar *)homeToolBar didTapReceivingrders:(UIButton *)receivingrdersBtn {
+- (void)homeToolBar:(TJHomeToolBar *)homeToolBar didTapUnacceptTask:(UIButton *)UnacceptTaskBtn {
     
     
 }
 
+- (void)homeToolBar:(TJHomeToolBar *)homeToolBar didTapAcceptTask:(UIButton *)acceptTaskBtn {
+    
+    
+}
 
 
 
